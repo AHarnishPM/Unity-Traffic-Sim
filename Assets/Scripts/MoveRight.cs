@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class MoveRight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Math.Abs(transform.position.x) > 70)
+        {
+            Destroy(gameObject);
+        }
     }
 }
