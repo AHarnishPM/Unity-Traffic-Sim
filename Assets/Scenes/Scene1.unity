@@ -215,7 +215,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1454759299
+--- !u!1 &757243657
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,8 +223,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1454759301}
-  - component: {fileID: 1454759300}
+  - component: {fileID: 757243658}
+  - component: {fileID: 757243659}
   m_Layer: 0
   m_Name: Car Spawner
   m_TagString: Untagged
@@ -232,13 +232,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1454759300
+--- !u!4 &757243658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757243657}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -60.6, y: -2.2, z: -0.9165652}
+  m_LocalScale: {x: -12.708947, y: 19.700005, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!114 &757243659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454759299}
+  m_GameObject: {fileID: 757243657}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5640abd4a64b63498baf4b2abc0c174, type: 3}
@@ -246,21 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 8384916707406919506, guid: 4e42beca89afbb648bb2ba1315959ca9, type: 3}
   SpawnRate: 2
---- !u!4 &1454759301
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454759299}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -64.3, y: -1.8, z: -0.4582826}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  carsLeft: 2
 --- !u!1 &1944201449
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,4 +352,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1944201451}
-  - {fileID: 1454759301}
+  - {fileID: 757243658}
