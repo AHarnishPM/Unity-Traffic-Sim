@@ -7,6 +7,7 @@ public class SpawnCar : MonoBehaviour
     public GameObject car;
     public float SpawnRate = 2;
     private float timer = 0;
+    public float carsLeft = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +23,12 @@ public class SpawnCar : MonoBehaviour
         }
         else
         {
-            timer = 0;
-            Instantiate(car, transform.position, transform.rotation);
+            if (carsLeft > 0)
+            {
+                timer = 0;
+                Instantiate(car, transform.position, transform.rotation);
+                carsLeft--;
+            }
         }
     }
 }
