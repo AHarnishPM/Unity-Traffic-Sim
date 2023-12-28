@@ -17,6 +17,9 @@ public class MoveRight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Find distance to next car
+        // Determine if current velocity, acceleration, and distance are okay
+        // Update acceleration if not
         if (Math.Abs(transform.position.x) > 70)
         {
             Destroy(gameObject);
