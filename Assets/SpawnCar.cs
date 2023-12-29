@@ -5,9 +5,9 @@ using UnityEngine;
 public class SpawnCar : MonoBehaviour
 {
     public GameObject car;
-    public float SpawnRate = 2;
+    public float SpawnRate = 3;
     private float timer = 0;
-    public float carsLeft = 2;
+    public float carsLeft = 4;
     // Start is called before the first frame update
     void Start()
     {
