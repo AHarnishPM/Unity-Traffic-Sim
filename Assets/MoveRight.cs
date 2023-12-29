@@ -10,24 +10,26 @@ public class MoveRight : MonoBehaviour
     public Collider2D myCollider;
     public LayerMask layerMask;
 
-    public float speedLimit = 10.0f;
-    public float desiredVelocity = 10.0f;
+    public Vector2 startDirection;
+    public float speedLimit = 20.0f;
+    public float desiredVelocity = 20.0f;
     public float minimumSpacing = 1.5f;
     public float desiredTimeGap = 2;
-    public float maxAcceleration = 3;
-    public float comfyBrakingDecelleration = 3f;
+    public float maxAcceleration = 3.8f;
+    public float comfyBrakingDecelleration = 2.5f;
     public float exponent = 4;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody.velocity = Vector2.right * speedLimit;
+        myRigidBody.velocity = startDirection * speedLimit;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(myRigidBody.velocity);
         // Find distance to next car
 
         // Notes:
@@ -59,10 +61,10 @@ public class MoveRight : MonoBehaviour
         }
 
         // Applies acceleration
-        myRigidBody.velocity = new Vector2(myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime), 0);
+        myRigidBody.velocity *= (myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime)) / myRigidBody.velocity.magnitude;
 
 
-        if (Math.Abs(transform.position.x) > 70)
+        if (Math.Abs(transform.position.x) > 185)
         {
             Destroy(gameObject);
         }

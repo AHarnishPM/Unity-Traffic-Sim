@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 261653039292214715}
   - component: {fileID: 4323643536799553477}
   m_Layer: 6
-  m_Name: white-car
+  m_Name: down-car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,13 +104,13 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 123
-  startDirection: {x: 1, y: 0}
+  startDirection: {x: 0, y: -1}
   speedLimit: 20
   desiredVelocity: 20
   minimumSpacing: 1.5
   desiredTimeGap: 2
   maxAcceleration: 3.8
-  comfyBrakingDecelleration: 2.5
+  comfyBrakingDecelleration: 1.2
   exponent: 4
 --- !u!50 &261653039292214715
 Rigidbody2D:
