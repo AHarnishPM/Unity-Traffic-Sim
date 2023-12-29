@@ -101,11 +101,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 261653039292214715}
   myCollider: {fileID: 4323643536799553477}
-  speed: 5
   layerMask:
     serializedVersion: 2
     m_Bits: 123
-  acceleration: 0
+  speedLimit: 10
+  desiredVelocity: 10
+  minimumSpacing: 1.5
+  desiredTimeGap: 2
+  maxAcceleration: 3
+  comfyBrakingDecelleration: 3
+  exponent: 4
 --- !u!50 &261653039292214715
 Rigidbody2D:
   serializedVersion: 4

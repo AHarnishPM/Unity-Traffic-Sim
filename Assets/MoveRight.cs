@@ -8,17 +8,21 @@ public class MoveRight : MonoBehaviour
 {
     public Rigidbody2D myRigidBody;
     public Collider2D myCollider;
-    public float speed = 10.0f;
-
     public LayerMask layerMask;
-    public float acceleration = 0;
+
+    public float speedLimit = 10.0f;
+    public float desiredVelocity = 10.0f;
+    public float minimumSpacing = 1.5f;
+    public float desiredTimeGap = 2;
+    public float maxAcceleration = 3;
+    public float comfyBrakingDecelleration = 3f;
+    public float exponent = 4;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody.velocity = Vector2.right * speed;
-        Debug.Log(myRigidBody.rotation);
+        myRigidBody.velocity = Vector2.right * speedLimit;
     }
 
     // Update is called once per frame
@@ -32,57 +36,32 @@ public class MoveRight : MonoBehaviour
         // 1 mph = 1.609 km/hour
         // 1 meter/second = 2.237 mph
 
+        // Here I will use the Intelligent Driver Model (IDM) as outlined
+        // on a Wikipedia page https://en.wikipedia.org/wiki/Intelligent_driver_model.
+
+        float accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
+
+
+        // Adjusts acceleration if any cars are ahead
         RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 100f, layerMask);
 
         if (hit)
         {
+            float netDistance = hit.distance - (myCollider.bounds.size.x / 2f);
 
-            // Determine if current velocity, acceleration, and distance are okay
-            float myVelocity = myRigidBody.velocity.magnitude;
-            float hitVelocity = hit.rigidbody.velocity.magnitude;
+            float approachVelocity = myRigidBody.velocity.magnitude - hit.rigidbody.velocity.magnitude;
 
-            float distance = hit.distance - myCollider.bounds.size.x / 2f;
+            float function = minimumSpacing + (myRigidBody.velocity.magnitude * desiredTimeGap) + ((myRigidBody.velocity.magnitude * approachVelocity) / (2 * netDistance * Mathf.Sqrt(maxAcceleration * comfyBrakingDecelleration)));
 
-            float safeFollowingDistance = 1f + (hitVelocity * 2);
+            float adjustment = maxAcceleration * Mathf.Pow(function / netDistance, 2);
 
-            // If my current settings and the other object's velocity will result in an unsafe following distance in the
-            // next three seconds, adjust
-
-            float myDisplacementAfter3 = (myVelocity * 3) + (0.5f * acceleration * 9f);
-            float otherDisplacementAfter3 = hitVelocity * 3;
-            float distanceAfter3Seconds = distance - myDisplacementAfter3 + otherDisplacementAfter3;
-
-            // if speed and distance are below a threshold, come to full stop.
-
-            Debug.Log("Velocity = " + myVelocity);
-
-
-            if (distance < 1 && myRigidBody.velocity.magnitude < 3)
-            {
-                myRigidBody.velocity = Vector2.zero;
-            }
-
-
-            else if (distanceAfter3Seconds < safeFollowingDistance) 
-            {
-                Debug.Log(myRigidBody + " Slowing Down");
-
-                //Brake so that my final velocity = the velocity of car in front of me
-                //and my final position is the correct following distance away
-                // vFinal^2 = vInitial^2 + 2ad
-                // acceleration = (vFinal^2 - vInitial^2) / 2d
-                acceleration = (Mathf.Pow(hitVelocity, 2) - Mathf.Pow(myVelocity, 2)) / (distance * 2f);
-
-                // If object is closer than following distance and current trajectory will hit it, slow down
-                // If furhter than following distance, speed up to speed limit.
-
-                myRigidBody.velocity = new Vector2(myRigidBody.velocity.x + (acceleration), myRigidBody.velocity.y);
-            }
+            accelerationFree -= adjustment;
         }
 
+        // Applies acceleration
+        myRigidBody.velocity = new Vector2(myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime), 0);
 
 
-        // Update acceleration if not
         if (Math.Abs(transform.position.x) > 70)
         {
             Destroy(gameObject);
