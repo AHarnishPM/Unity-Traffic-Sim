@@ -26,6 +26,12 @@ public class MoveRight : MonoBehaviour
     {
         // Find distance to next car
 
+        // Notes:
+        // 1 distance = 1 meter
+        // 1 meter/second = 3.6 km/hour
+        // 1 mph = 1.609 km/hour
+        // 1 meter/second = 2.237 mph
+
         RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 100f, layerMask);
 
         if (hit)
@@ -48,10 +54,14 @@ public class MoveRight : MonoBehaviour
 
             // if speed and distance are below a threshold, come to full stop.
 
+            Debug.Log("Velocity = " + myVelocity);
+
+
             if (distance < 1 && myRigidBody.velocity.magnitude < 3)
             {
                 myRigidBody.velocity = Vector2.zero;
             }
+
 
             else if (distanceAfter3Seconds < safeFollowingDistance) 
             {
