@@ -9,6 +9,7 @@ public class MoveRight : MonoBehaviour
     public Rigidbody2D myRigidBody;
     public Collider2D myCollider;
     public LayerMask layerMask;
+    public GameObject onElement;
 
     public Vector2 startDirection;
     public float speedLimit = 20.0f;
@@ -29,7 +30,6 @@ public class MoveRight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(myRigidBody.velocity);
         // Find distance to next car
 
         // Notes:
@@ -69,5 +69,11 @@ public class MoveRight : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        onElement = collision.gameObject;
+        Debug.Log(onElement);
     }
 }
