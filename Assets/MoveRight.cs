@@ -64,9 +64,10 @@ public class MoveRight : MonoBehaviour
         myRigidBody.velocity *= (myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime)) / myRigidBody.velocity.magnitude;
 
 
-        if (Math.Abs(transform.position.x) > 185)
+        if (Math.Abs(transform.position.x) > 185 || Math.Abs(transform.position.y) > 105)
         {
             Destroy(gameObject);
         }
+        
     }
 }

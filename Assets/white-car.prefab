@@ -104,7 +104,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 123
-  startDirection: {x: 1, y: 0}
+  startDirection: {x: 0, y: 0}
   speedLimit: 20
   desiredVelocity: 20
   minimumSpacing: 1.5

@@ -259,9 +259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5640abd4a64b63498baf4b2abc0c174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  car: {fileID: 8384916707406919506, guid: bf19a33e29b6b4e51a8fd008e5e2a326, type: 3}
+  car: {fileID: 8384916707406919506, guid: 4e42beca89afbb648bb2ba1315959ca9, type: 3}
   SpawnRate: 3
   carsLeft: 4
+  spawnedDirection: {x: 0, y: 1}
 --- !u!1 &757243657
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +310,7 @@ MonoBehaviour:
   car: {fileID: 8384916707406919506, guid: 4e42beca89afbb648bb2ba1315959ca9, type: 3}
   SpawnRate: 3
   carsLeft: 4
+  spawnedDirection: {x: 1, y: 0}
 --- !u!1 &785215272 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 262474098025407395, guid: e7d700cfbabe925449bb0fd8ec3ee4c3, type: 3}
@@ -353,7 +355,7 @@ GameObject:
   - component: {fileID: 1111946842}
   - component: {fileID: 1111946841}
   m_Layer: 2
-  m_Name: north-south-road
+  m_Name: Up Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,9 +598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5640abd4a64b63498baf4b2abc0c174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  car: {fileID: 8384916707406919506, guid: 1b8cacaa0ba1b4bae956efcf08016263, type: 3}
+  car: {fileID: 8384916707406919506, guid: 4e42beca89afbb648bb2ba1315959ca9, type: 3}
   SpawnRate: 3
   carsLeft: 4
+  spawnedDirection: {x: -1, y: 0}
 --- !u!1 &1850112512
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +614,7 @@ GameObject:
   - component: {fileID: 1850112514}
   - component: {fileID: 1850112513}
   m_Layer: 2
-  m_Name: east-west-road
+  m_Name: Right Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,7 +745,7 @@ GameObject:
   - component: {fileID: 1911423181}
   - component: {fileID: 1911423180}
   m_Layer: 2
-  m_Name: south-north-road
+  m_Name: Down Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -873,7 +876,7 @@ GameObject:
   - component: {fileID: 1944201450}
   - component: {fileID: 1944201452}
   m_Layer: 2
-  m_Name: west-east-road
+  m_Name: Left Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1036,9 +1039,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5640abd4a64b63498baf4b2abc0c174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  car: {fileID: 8384916707406919506, guid: 1d07f5e8217404912991042028ee2360, type: 3}
+  car: {fileID: 8384916707406919506, guid: 4e42beca89afbb648bb2ba1315959ca9, type: 3}
   SpawnRate: 3
   carsLeft: 4
+  spawnedDirection: {x: 0, y: -1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
