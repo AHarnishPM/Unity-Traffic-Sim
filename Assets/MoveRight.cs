@@ -11,6 +11,8 @@ public class MoveRight : MonoBehaviour
     public LayerMask layerMask;
     public LayerMask maskWithBarriers;
     public GameObject onElement;
+    public GameObject leftSignal;
+    public GameObject rightSignal;
 
     
     public float minimumSpacing = 1.5f;
@@ -18,6 +20,9 @@ public class MoveRight : MonoBehaviour
     public float maxAcceleration = 3.8f;
     public float comfyBrakingDecelleration = 2.5f;
     public float exponent = 4;
+    public float timer = 0;
+
+    public int turnSignal; // -1 left, 0 straight, 1 right
 
     public float speedLimit;
     public float desiredVelocity;
@@ -71,7 +76,21 @@ public class MoveRight : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
+        // turn signal
+        if (timer < 0.4f)
+        {
+            timer += Time.deltaTime;
+        }
+        else if (turnSignal != 0)
+        {
+            timer = 0;
+            GameObject blinker = (turnSignal > 0) ? rightSignal : leftSignal;
+            blinker.SetActive(blinker.activeSelf ? false : true);
+        }
+
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
