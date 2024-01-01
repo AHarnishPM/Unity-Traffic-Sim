@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5967641278206677916}
   - component: {fileID: 5980161333512232414}
   m_Layer: 3
-  m_Name: Single Sensor
+  m_Name: Single Ranger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

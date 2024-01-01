@@ -9,6 +9,7 @@ public class MoveRight : MonoBehaviour
     public Rigidbody2D myRigidBody;
     public Collider2D myCollider;
     public LayerMask layerMask;
+    public LayerMask maskWithBarriers;
     public GameObject onElement;
 
     
@@ -77,5 +78,9 @@ public class MoveRight : MonoBehaviour
     {
         onElement = collision.gameObject;
         Debug.Log(onElement);
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        layerMask = maskWithBarriers;
     }
 }

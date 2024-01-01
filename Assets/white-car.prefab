@@ -104,6 +104,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 192
+  maskWithBarriers:
+    serializedVersion: 2
+    m_Bits: 192
   onElement: {fileID: 0}
   minimumSpacing: 1.5
   desiredTimeGap: 2
