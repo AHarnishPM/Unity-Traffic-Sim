@@ -32,7 +32,6 @@ public class MoveRight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(myRigidBody.velocity);
         // Find distance to next car
 
         // Notes:
@@ -48,9 +47,9 @@ public class MoveRight : MonoBehaviour
 
 
         // Adjusts acceleration if any cars are ahead
-        RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 100f, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 200f, layerMask);
 
-        if (hit)
+        if (hit.collider != null)
         {
             float netDistance = hit.distance - (myCollider.bounds.size.x / 2f);
 
