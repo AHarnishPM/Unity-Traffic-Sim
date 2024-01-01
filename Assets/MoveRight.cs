@@ -11,24 +11,28 @@ public class MoveRight : MonoBehaviour
     public LayerMask layerMask;
     public GameObject onElement;
 
-    public float speedLimit = 20.0f;
-    public float desiredVelocity = 20.0f;
+    
     public float minimumSpacing = 1.5f;
     public float desiredTimeGap = 2;
     public float maxAcceleration = 3.8f;
     public float comfyBrakingDecelleration = 2.5f;
     public float exponent = 4;
 
+    public float speedLimit;
+    public float desiredVelocity;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody.velocity = transform.rotation * Vector2.up * speedLimit;
+        desiredVelocity = speedLimit;
+        myRigidBody.velocity = transform.rotation * Vector2.up * desiredVelocity;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(myRigidBody.velocity);
         // Find distance to next car
 
         // Notes:

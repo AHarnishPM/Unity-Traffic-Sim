@@ -105,14 +105,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   onElement: {fileID: 0}
-  startDirection: {x: 0, y: 0}
-  speedLimit: 20
-  desiredVelocity: 20
   minimumSpacing: 1.5
   desiredTimeGap: 2
-  maxAcceleration: 3.4
+  maxAcceleration: 3
   comfyBrakingDecelleration: 2.5
   exponent: 4
+  speedLimit: 20
+  desiredVelocity: 20
 --- !u!50 &261653039292214715
 Rigidbody2D:
   serializedVersion: 4

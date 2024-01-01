@@ -5,7 +5,8 @@ using UnityEngine;
 public class SpawnCar : MonoBehaviour
 {
     public GameObject car;
-    public float SpawnRate = 3;
+    public GameObject road;
+    public float SpawnRate = 5;
     private float timer = 0;
     public float carsLeft = 4;
     // Start is called before the first frame update
@@ -27,7 +28,10 @@ public class SpawnCar : MonoBehaviour
             {
                 timer = 0;
                 GameObject newCar = Instantiate(car, transform.position, transform.rotation);
-               
+                var carScript = newCar.GetComponent<MoveRight>();
+                var roadScript = road.GetComponent<RoadInfo>();
+
+                carScript.speedLimit = roadScript.speedLimit;
                 carsLeft--;
             }
         }

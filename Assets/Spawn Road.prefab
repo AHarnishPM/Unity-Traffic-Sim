@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 8384916707406919506, guid: 4e42beca89afbb648bb2ba1315959ca9, type: 3}
-  SpawnRate: 3
+  road: {fileID: 1321251480472722610}
+  SpawnRate: 5
   carsLeft: 4
 --- !u!1 &1321251480472722610
 GameObject:
@@ -58,6 +59,7 @@ GameObject:
   - component: {fileID: 5469063856791924467}
   - component: {fileID: 6111130486976541291}
   - component: {fileID: 5184465292878983308}
+  - component: {fileID: 8628679946036854628}
   m_Layer: 3
   m_Name: Spawn Road
   m_TagString: Untagged
@@ -79,7 +81,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4288930937340981466}
-  - {fileID: 5015418918690953343}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6111130486976541291
@@ -179,34 +180,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.13, y: 0.64}
   m_EdgeRadius: 0
---- !u!1 &1392214454475252667
-GameObject:
+--- !u!114 &8628679946036854628
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5015418918690953343}
-  m_Layer: 3
-  m_Name: Direction Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5015418918690953343
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392214454475252667}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.17, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5469063856791924467}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1321251480472722610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94df69f127b344de3b36ac80bf805178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedLimit: 11.176
