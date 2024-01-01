@@ -11,7 +11,6 @@ public class MoveRight : MonoBehaviour
     public LayerMask layerMask;
     public GameObject onElement;
 
-    public Vector2 startDirection;
     public float speedLimit = 20.0f;
     public float desiredVelocity = 20.0f;
     public float minimumSpacing = 1.5f;
@@ -24,7 +23,7 @@ public class MoveRight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody.velocity = startDirection * speedLimit;
+        myRigidBody.velocity = transform.rotation * Vector2.up * speedLimit;
     }
 
     // Update is called once per frame
