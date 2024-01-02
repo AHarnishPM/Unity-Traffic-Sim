@@ -286,7 +286,7 @@ MonoBehaviour:
   comfyBrakingDecelleration: 2.5
   exponent: 4
   timer: 0
-  turnSignal: 0
+  turnSignal: -1
   speedLimit: 20
   desiredVelocity: 20
 --- !u!50 &261653039292214715
