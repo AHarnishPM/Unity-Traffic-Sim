@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5719408948880854994}
   - component: {fileID: 5967641278206677916}
   - component: {fileID: 5980161333512232414}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: Single Ranger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,3 +100,4 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 64
+  viewDistance: 1000

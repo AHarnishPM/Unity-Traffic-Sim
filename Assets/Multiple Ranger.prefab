@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5894506887740161216}
   - component: {fileID: 1678601219774746186}
   - component: {fileID: 521292267424010272}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: Multiple Ranger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
