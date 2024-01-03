@@ -25,6 +25,8 @@ public class StandardLightScript : MonoBehaviour
         new int[] { 0, 0, 0, 2 }  // Bottom open
     };
 
+    private bool isRunning;
+
     Queue<Action> jobs = new Queue<Action>();
 
     // Start is called before the first frame update
@@ -35,10 +37,12 @@ public class StandardLightScript : MonoBehaviour
             scripts[count] = barriers[count].GetComponent<LightBarrierScript>();
         }
 
+        isRunning = true;
+
         Thread sequencerThread = new Thread(sequencer);
+        sequencerThread.IsBackground = true;
         sequencerThread.Start();
 
-        
     }
 
     // Update is called once per frame
@@ -65,9 +69,16 @@ public class StandardLightScript : MonoBehaviour
     // Plan to make this cleaner for ML integration.
     private void sequencer()
     {
+        if (!isRunning) { return; }
         Debug.Log("YEAH");
         jobs.Enqueue(() => switchTo(orientations[3]));
         Thread.Sleep(3000);
         jobs.Enqueue(() => switchTo(orientations[1]));
+        Thread.Sleep(3000);
+        sequencer();
+    }
+    private void OnApplicationQuit()
+    {
+        isRunning = false;
     }
 }
