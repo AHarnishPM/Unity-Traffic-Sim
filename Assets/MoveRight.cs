@@ -97,6 +97,8 @@ public class MoveRight : MonoBehaviour
     {
         onElement = collision.gameObject;
     }
+
+    // Any cars allowed to pass through stop barriers have their masks reset upon leaving the intersection
     private void OnTriggerExit2D(Collider2D other)
     {
         layerMask = maskWithBarriers;
