@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class StandardLightScript : MonoBehaviour
@@ -10,7 +11,13 @@ public class StandardLightScript : MonoBehaviour
 
     public LightBarrierScript[] scripts = new LightBarrierScript[4];
 
-    public int currentOrientationIndex = 0;
+    public int[] currentOrientation = {0, 0, 0, 0};
+
+    private float timer = 0;
+
+    private bool isPausing = false;
+
+    private bool isTransitioning = false;
 
     // 0 = red, 1=yellow, 2=green
     // Values in this order: top, left, right, bottom
@@ -32,20 +39,62 @@ public class StandardLightScript : MonoBehaviour
         {
             scripts[count] = barriers[count].GetComponent<LightBarrierScript>();
         }
+        safeTransitionTo(orientations[1]);
+        safeTransitionTo(orientations[2]);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Calculate yellow time, for now default 3 seconds
+        timer += Time.deltaTime;
+        if (timer >= 3 && isTransitioning)
+        {
+            switchTo(orientations[0]);
+            isTransitioning = false;
+            isPausing = true;
+            timer = 0;
+        }
+
+        if (isPausing && timer >= 1)
+        {
+            isPausing = false;
+            switchTo(currentOrientation);
+        }
     }
 
-    public void transitionTo(int[] orientation)
+    public void switchTo(int[] orientation)
     {
         for (int i = 0; i < orientation.Length; i++)
         {
             scripts[i].makeColor(orientation[i]);
         }
+    }
+
+    public void safeTransitionTo(int[] orientation)
+    {
+        if (isTransitioning)
+        {
+            throw new System.Exception("Cannot change orientation while already changing");
+        }
+
+        int[] transOrientation = new int[orientation.Length];
+        for (int i = 0; i < orientation.Length; i++)
+        {
+            if (orientation[i] == 0 && currentOrientation[i] == 2)
+            {
+                isTransitioning = true;
+                timer = 0;
+                transOrientation[i] = 1;
+            }
+            else
+            {
+                transOrientation[i] = orientation[i];
+            }
+        }
+        currentOrientation = orientation;
+
+        switchTo(transOrientation);
     }
 }
