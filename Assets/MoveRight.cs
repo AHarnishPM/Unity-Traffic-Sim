@@ -96,7 +96,6 @@ public class MoveRight : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         onElement = collision.gameObject;
-        Debug.Log(onElement);
     }
     private void OnTriggerExit2D(Collider2D other)
     {

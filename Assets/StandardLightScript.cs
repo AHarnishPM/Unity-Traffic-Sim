@@ -12,7 +12,7 @@ public class StandardLightScript : MonoBehaviour
 
     public LightBarrierScript[] scripts = new LightBarrierScript[4];
 
-    public int[] currentOrientation = {0, 0, 0, 0};
+    public int[] currentOrientation = { 0, 0, 0, 0 };
 
     public int[][] orientations =
     {
@@ -32,7 +32,7 @@ public class StandardLightScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int count = 0; count < barriers.Length; count++)
+        for (int count = 0; count < barriers.Length; count++)
         {
             scripts[count] = barriers[count].GetComponent<LightBarrierScript>();
         }
@@ -56,10 +56,14 @@ public class StandardLightScript : MonoBehaviour
         }
     }
 
-    public void switchTo(int[] orientation)
+    public void switchTo(int[] orientation, bool isYellow=false)
     {
         for (int i = 0; i < orientation.Length; i++)
         {
+            if (orientation[i] == 2 && isYellow)
+            {
+                orientation[i] = 1;
+            }
             scripts[i].makeColor(orientation[i]);
         }
         currentOrientation = orientation;
@@ -71,9 +75,11 @@ public class StandardLightScript : MonoBehaviour
     {
         if (!isRunning) { return; }
         Debug.Log("YEAH");
-        jobs.Enqueue(() => switchTo(orientations[3]));
-        Thread.Sleep(3000);
         jobs.Enqueue(() => switchTo(orientations[1]));
+        Thread.Sleep(3000);
+        jobs.Enqueue(() => switchTo(orientations[1], true));
+        Thread.Sleep(3000);
+        jobs.Enqueue(() => switchTo(orientations[2]));
         Thread.Sleep(3000);
         sequencer();
     }
