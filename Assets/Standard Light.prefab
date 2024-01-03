@@ -151,18 +151,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987ce16988000451f82381d297d4440a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrierTop: {fileID: 5035424202856713039}
-  barrierLeft: {fileID: 5289438725569584492}
-  barrierRight: {fileID: 8161843226469734669}
-  barrierBottom: {fileID: 1200431218557544995}
-  mutliRangerTop: {fileID: 1200322277515145644}
-  multiRangerLeft: {fileID: 1465064933363116053}
-  multiRangerRight: {fileID: 7423251768200029101}
-  multiRangerBottom: {fileID: 6570495510225757437}
-  topScript: {fileID: 0}
-  leftScript: {fileID: 0}
-  rightScript: {fileID: 0}
-  bottomScript: {fileID: 0}
+  barriers:
+  - {fileID: 5035424202856713039}
+  - {fileID: 5289438725569584492}
+  - {fileID: 8161843226469734669}
+  - {fileID: 1200431218557544995}
+  multiRangers:
+  - {fileID: 1200322277515145644}
+  - {fileID: 1465064933363116053}
+  - {fileID: 7423251768200029101}
+  - {fileID: 6570495510225757437}
+  scripts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentOrientationIndex: 0
 --- !u!1001 &87714286320926621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -213,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828164065442635568, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_labelHash
-      value: 9.937881e-21
+      value: 9.06267e-27
       objectReference: {fileID: 0}
     - target: {fileID: 5210739341162685169, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_Name
@@ -284,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828164065442635568, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_labelHash
-      value: 9.937881e-21
+      value: 9.06267e-27
       objectReference: {fileID: 0}
     - target: {fileID: 5210739341162685169, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_Name
@@ -489,7 +493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828164065442635568, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_labelHash
-      value: 9.937881e-21
+      value: 9.06267e-27
       objectReference: {fileID: 0}
     - target: {fileID: 5210739341162685169, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_Name
@@ -560,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828164065442635568, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_labelHash
-      value: 9.937881e-21
+      value: 9.06267e-27
       objectReference: {fileID: 0}
     - target: {fileID: 5210739341162685169, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
       propertyPath: m_Name

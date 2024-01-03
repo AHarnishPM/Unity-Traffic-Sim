@@ -4,48 +4,48 @@ using UnityEngine;
 
 public class StandardLightScript : MonoBehaviour
 {
-    public GameObject barrierTop;
-    public GameObject barrierLeft;
-    public GameObject barrierRight;
-    public GameObject barrierBottom;
+    public GameObject[] barriers = new GameObject[4];
 
-    public GameObject mutliRangerTop;
-    public GameObject multiRangerLeft;
-    public GameObject multiRangerRight;
-    public GameObject multiRangerBottom;
+    public GameObject[] multiRangers = new GameObject[4];
 
-    public LightBarrierScript topScript;
-    public LightBarrierScript leftScript;
-    public LightBarrierScript rightScript;
-    public LightBarrierScript bottomScript;
+    public LightBarrierScript[] scripts = new LightBarrierScript[4];
+
+    public int currentOrientationIndex = 0;
 
     // 0 = red, 1=yellow, 2=green
     // Values in this order: top, left, right, bottom
     // When transitioning, must approach first orientation where all are red first
-    public int[,] orientations =
+    public int[][] orientations =
     {
-        {0, 0, 0, 0 }, // All blocked
-        {0, 2, 2, 0 }, // Horizontal free, vertical blocked
-        {2, 0, 0, 2 }, // Vertical free, horizontal blocked
-        {2, 0, 0, 0 }, // Top open
-        {0, 2, 0, 0 }, // Left open
-        {0, 0, 2, 0 }, // Right open
-        {0, 0, 0, 2 }  // Bottom open
+        new int[] {0, 0, 0, 0 }, // All blocked, default orientation
+        new int[] { 0, 2, 2, 0 }, // Horizontal free, vertical blocked
+        new int[] { 2, 0, 0, 2 }, // Vertical free, horizontal blocked
+        new int[] { 2, 0, 0, 0 }, // Top open
+        new int[] { 0, 2, 0, 0 }, // Left open
+        new int[] { 0, 0, 2, 0 }, // Right open
+        new int[] { 0, 0, 0, 2 }  // Bottom open
     };
     // Start is called before the first frame update
     void Start()
     {
-        topScript = barrierTop.GetComponent<LightBarrierScript>();
-        bottomScript = barrierBottom.GetComponent<LightBarrierScript>();
-        leftScript = barrierLeft.GetComponent<LightBarrierScript>();
-        rightScript = barrierRight.GetComponent<LightBarrierScript>();
+        for(int count = 0; count < barriers.Length; count++)
+        {
+            scripts[count] = barriers[count].GetComponent<LightBarrierScript>();
+        }
 
-        topScript.makeColor(0);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void transitionTo(int[] orientation)
+    {
+        for (int i = 0; i < orientation.Length; i++)
+        {
+            scripts[i].makeColor(orientation[i]);
+        }
     }
 }
