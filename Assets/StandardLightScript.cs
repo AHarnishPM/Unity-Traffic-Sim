@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -13,15 +14,6 @@ public class StandardLightScript : MonoBehaviour
 
     public int[] currentOrientation = {0, 0, 0, 0};
 
-    private float timer = 0;
-
-    private bool isPausing = false;
-
-    private bool isTransitioning = false;
-
-    // 0 = red, 1=yellow, 2=green
-    // Values in this order: top, left, right, bottom
-    // When transitioning, must approach first orientation where all are red first
     public int[][] orientations =
     {
         new int[] {0, 0, 0, 0 }, // All blocked, default orientation
@@ -32,6 +24,9 @@ public class StandardLightScript : MonoBehaviour
         new int[] { 0, 0, 2, 0 }, // Right open
         new int[] { 0, 0, 0, 2 }  // Bottom open
     };
+
+    Queue<Action> jobs = new Queue<Action>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,28 +34,21 @@ public class StandardLightScript : MonoBehaviour
         {
             scripts[count] = barriers[count].GetComponent<LightBarrierScript>();
         }
-        safeTransitionTo(orientations[1]);
-        safeTransitionTo(orientations[2]);
 
+        Thread sequencerThread = new Thread(sequencer);
+        sequencerThread.Start();
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Calculate yellow time, for now default 3 seconds
-        timer += Time.deltaTime;
-        if (timer >= 3 && isTransitioning)
+        // switchTo has components that can only be called to from main thread, and I want to use Thread.Sleep to handle waiting
+        // instead of messy timer loops.
+        while (jobs.Count > 0)
         {
-            switchTo(orientations[0]);
-            isTransitioning = false;
-            isPausing = true;
-            timer = 0;
-        }
-
-        if (isPausing && timer >= 1)
-        {
-            isPausing = false;
-            switchTo(currentOrientation);
+            jobs.Dequeue().Invoke();
         }
     }
 
@@ -70,31 +58,16 @@ public class StandardLightScript : MonoBehaviour
         {
             scripts[i].makeColor(orientation[i]);
         }
+        currentOrientation = orientation;
     }
 
-    public void safeTransitionTo(int[] orientation)
+    // Updates traffic lights at set intervals, can repeat by calling sequencer() again at the end.
+    // Plan to make this cleaner for ML integration.
+    private void sequencer()
     {
-        if (isTransitioning)
-        {
-            throw new System.Exception("Cannot change orientation while already changing");
-        }
-
-        int[] transOrientation = new int[orientation.Length];
-        for (int i = 0; i < orientation.Length; i++)
-        {
-            if (orientation[i] == 0 && currentOrientation[i] == 2)
-            {
-                isTransitioning = true;
-                timer = 0;
-                transOrientation[i] = 1;
-            }
-            else
-            {
-                transOrientation[i] = orientation[i];
-            }
-        }
-        currentOrientation = orientation;
-
-        switchTo(transOrientation);
+        Debug.Log("YEAH");
+        jobs.Enqueue(() => switchTo(orientations[3]));
+        Thread.Sleep(3000);
+        jobs.Enqueue(() => switchTo(orientations[1]));
     }
 }

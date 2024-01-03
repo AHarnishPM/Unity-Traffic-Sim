@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 260098464911108364}
   - component: {fileID: 6007148081581064506}
   - component: {fileID: 7054534237457262611}
+  - component: {fileID: 5057414888463402856}
   m_Layer: 2
   m_Name: Standard Light
   m_TagString: Untagged
@@ -166,7 +167,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  currentOrientationIndex: 0
+  currentOrientation: 00000000000000000000000000000000
+--- !u!114 &5057414888463402856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692819016392892834}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eda8ba5abb099d44b3f3b93b5362f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightScript: {fileID: 0}
 --- !u!1001 &87714286320926621
 PrefabInstance:
   m_ObjectHideFlags: 0
