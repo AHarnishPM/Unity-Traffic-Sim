@@ -5,7 +5,9 @@ using UnityEngine;
 public class LightBarrierScript : MonoBehaviour
 {
     public BoxCollider2D myCollider;
-    public int lightStatus; // red: -1 ; yellow: 0 ; green: 1
+    public SpriteRenderer myRenderer;
+    public Sprite[] sprites = new Sprite[3];
+    public int lightStatus; // red: 0 ; yellow: 1 ; green: 2
 
     // Start is called before the first frame update
     void Start()
@@ -19,22 +21,14 @@ public class LightBarrierScript : MonoBehaviour
 
     }
 
-    public void makeRed()
+    public void makeColor(int colorID)
     {
-        myCollider.enabled = true;
-        lightStatus = -1;
-    }
-
-    public void makeGreen()
-    {
-        myCollider.enabled=false;
-        lightStatus = 1;
-    }
-
-    public void makeYellow()
-    {
-        myCollider.enabled = false;
-        lightStatus=0;
+        // red: 0
+        // yellow: 1
+        // green: 2
+        myCollider.enabled = colorID == 0;
+        lightStatus = colorID;
+        myRenderer.sprite = sprites[colorID];
     }
 
 }
