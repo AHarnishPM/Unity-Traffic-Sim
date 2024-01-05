@@ -39,25 +39,19 @@ public class StandardLightScript : MonoBehaviour
 
         isRunning = true;
 
-        Thread sequencerThread = new Thread(sequencer);
-        sequencerThread.IsBackground = true;
-        sequencerThread.Start();
+        startCycle();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        // switchTo has components that can only be called to from main thread, and I want to use Thread.Sleep to handle waiting
-        // instead of messy timer loops.
-        while (jobs.Count > 0)
-        {
-            jobs.Dequeue().Invoke();
-        }
+
     }
 
-    public void switchTo(int[] orientation, bool isYellow=false)
+    public IEnumerator switchTo(int[] orientation, float waitTime = 0, bool isYellow=false)
     {
+        yield return new WaitForSeconds(waitTime);
         for (int i = 0; i < orientation.Length; i++)
         {
             if (orientation[i] == 2 && isYellow)
@@ -69,22 +63,24 @@ public class StandardLightScript : MonoBehaviour
         currentOrientation = orientation;
     }
 
-    // Updates traffic lights at set intervals, can repeat by calling sequencer() again at the end.
-    // Plan to make this cleaner for ML integration.
-    private void sequencer()
-    {
-        if (!isRunning) { return; }
-        Debug.Log("YEAH");
-        jobs.Enqueue(() => switchTo(orientations[1]));
-        Thread.Sleep(3000);
-        jobs.Enqueue(() => switchTo(orientations[1], true));
-        Thread.Sleep(3000);
-        jobs.Enqueue(() => switchTo(orientations[2]));
-        Thread.Sleep(3000);
-        sequencer();
-    }
     private void OnApplicationQuit()
     {
         isRunning = false;
+    }
+
+    public IEnumerator waitToStartCycle(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        startCycle();
+    }
+
+    public void startCycle()
+    {
+        if (!isRunning) { return; }
+        StartCoroutine(switchTo(orientations[1]));
+        StartCoroutine(switchTo(orientations[1], 3, true));
+        StartCoroutine(switchTo(orientations[0], 6));
+        StartCoroutine(switchTo(orientations[2], 7, false));
+        StartCoroutine(waitToStartCycle(9));
     }
 }
