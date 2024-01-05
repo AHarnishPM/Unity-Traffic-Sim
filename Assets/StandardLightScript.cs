@@ -52,13 +52,10 @@ public class StandardLightScript : MonoBehaviour
     public IEnumerator switchTo(int[] orientation, float waitTime = 0, bool isYellow=false)
     {
         yield return new WaitForSeconds(waitTime);
+
         for (int i = 0; i < orientation.Length; i++)
         {
-            if (orientation[i] == 2 && isYellow)
-            {
-                orientation[i] = 1;
-            }
-            scripts[i].makeColor(orientation[i]);
+            scripts[i].makeColor(orientation[i] - ((orientation[i] == 2 && isYellow) ? 1 : 0));
         }
         currentOrientation = orientation;
     }
@@ -81,6 +78,8 @@ public class StandardLightScript : MonoBehaviour
         StartCoroutine(switchTo(orientations[1], 3, true));
         StartCoroutine(switchTo(orientations[0], 6));
         StartCoroutine(switchTo(orientations[2], 7, false));
-        StartCoroutine(waitToStartCycle(9));
+        StartCoroutine(switchTo(orientations[2], 10, true));
+        StartCoroutine(switchTo(orientations[0], 13));
+        StartCoroutine(waitToStartCycle(14));
     }
 }
