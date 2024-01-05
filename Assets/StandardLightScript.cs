@@ -53,6 +53,25 @@ public class StandardLightScript : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
+        if (isYellow )
+        {
+            // Tell cars that will make it through the yellow in 3 seconds at current velocity to ignore the barrier 
+            for (int i = 0; i < orientation.Length; i++)
+            {
+                if (orientation[i] == 2)
+                {
+                    foreach (RaycastHit2D hit in multiRangers[i].GetComponent<MultipleSensorScript>().hitList)
+                    {
+                        // If they will reach the ranger (halfway through the intersectio)
+                        if (hit.rigidbody.velocity.magnitude * 3 > hit.distance)
+                        {
+                            hit.collider.GetComponent<MoveRight>().ignoreBarriers();
+                        }
+                    }
+                }
+            }
+        }
+
         for (int i = 0; i < orientation.Length; i++)
         {
             scripts[i].makeColor(orientation[i] - ((orientation[i] == 2 && isYellow) ? 1 : 0));

@@ -27,7 +27,7 @@ public class LightBarrierScript : MonoBehaviour
         // red: 0
         // yellow: 1
         // green: 2
-        myCollider.enabled = colorID == 0;
+        myCollider.enabled = colorID != 2;
         lightStatus = colorID;
         myRenderer.sprite = sprites[colorID];
     }

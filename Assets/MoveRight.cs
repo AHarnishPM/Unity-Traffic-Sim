@@ -10,6 +10,7 @@ public class MoveRight : MonoBehaviour
     public Collider2D myCollider;
     public LayerMask layerMask;
     public LayerMask maskWithBarriers;
+    public LayerMask maskNoBarriers;
     public GameObject onElement;
     public GameObject leftSignal;
     public GameObject rightSignal;
@@ -33,6 +34,7 @@ public class MoveRight : MonoBehaviour
     {
         desiredVelocity = speedLimit;
         myRigidBody.velocity = transform.rotation * Vector2.up * desiredVelocity;
+        layerMask = maskWithBarriers;
     }
 
     // Update is called once per frame
@@ -50,7 +52,6 @@ public class MoveRight : MonoBehaviour
         // on a Wikipedia page https://en.wikipedia.org/wiki/Intelligent_driver_model.
 
         float accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
-
 
         // Adjusts acceleration if any cars are ahead
         RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 200f, layerMask);
@@ -88,9 +89,11 @@ public class MoveRight : MonoBehaviour
             GameObject blinker = (turnSignal > 0) ? rightSignal : leftSignal;
             blinker.SetActive(blinker.activeSelf ? false : true);
         }
-
-
-
+    }
+    // Car ignores barriers, used to let through stop signs and yellow lights.
+    public void ignoreBarriers()
+    {
+        layerMask = maskNoBarriers;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,7 +101,7 @@ public class MoveRight : MonoBehaviour
         onElement = collision.gameObject;
     }
 
-    // Any cars allowed to pass through stop barriers have their masks reset upon leaving the intersection
+    // After a car passes through the intersection, stop ignoring barriers.
     private void OnTriggerExit2D(Collider2D other)
     {
         layerMask = maskWithBarriers;
