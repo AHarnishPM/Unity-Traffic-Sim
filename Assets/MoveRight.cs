@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MoveRight : MonoBehaviour
 {
@@ -104,11 +105,17 @@ public class MoveRight : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         onElement = collision.gameObject;
+        
     }
 
     // After a car passes through the intersection, stop ignoring barriers.
     private void OnTriggerExit2D(Collider2D other)
     {
         layerMask = maskWithBarriers;
+        if (turnSignal == -1)
+        {
+            transform.Rotate(0f, 0f, 45f);
+            myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
+        }
     }
 }
