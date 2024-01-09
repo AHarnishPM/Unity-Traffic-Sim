@@ -590,6 +590,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightBarrier (bottom)
       objectReference: {fileID: 0}
+    - target: {fileID: 6696547507101821756, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6696547507101821756, guid: 644d0b02bac66314c96aabd9b698317f, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

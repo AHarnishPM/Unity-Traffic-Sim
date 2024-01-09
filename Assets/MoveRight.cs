@@ -12,7 +12,6 @@ public class MoveRight : MonoBehaviour
     public LayerMask layerMask;
     public LayerMask maskWithBarriers;
     public LayerMask maskNoBarriers;
-    public GameObject onElement;
     public GameObject leftSignal;
     public GameObject rightSignal;
 
@@ -25,6 +24,8 @@ public class MoveRight : MonoBehaviour
     public float timer = 0;
 
     public int turnSignal; // -1 left, 0 straight, 1 right
+    private bool lookForTPs;
+
 
     public float speedLimit;
     public float desiredVelocity;
@@ -104,7 +105,7 @@ public class MoveRight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        onElement = collision.gameObject;
+        lookForTPs = true;
         
     }
 
@@ -112,10 +113,22 @@ public class MoveRight : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         layerMask = maskWithBarriers;
-        if (turnSignal == -1)
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (lookForTPs && (collision.transform.position - transform.position).magnitude < 1)
         {
-            transform.Rotate(0f, 0f, 45f);
-            myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
+            Debug.Log("turn");
+            if (turnSignal == -1)
+            {
+                transform.Rotate(0f, 0f, 45f);
+                myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
+
+                // To avoid multiple detection of same TP
+                lookForTPs = false;
+            }
         }
     }
 }
