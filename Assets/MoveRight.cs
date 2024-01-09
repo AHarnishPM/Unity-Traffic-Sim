@@ -96,6 +96,11 @@ public class MoveRight : MonoBehaviour
         layerMask = maskNoBarriers;
     }
 
+    public void recognizeBarriers()
+    {
+        layerMask = maskWithBarriers;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         onElement = collision.gameObject;

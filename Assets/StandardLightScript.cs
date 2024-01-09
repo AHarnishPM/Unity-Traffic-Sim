@@ -10,7 +10,9 @@ public class StandardLightScript : MonoBehaviour
 
     public GameObject[] multiRangers = new GameObject[4];
 
-    public LightBarrierScript[] scripts = new LightBarrierScript[4];
+    public LightBarrierScript[] barrierScripts = new LightBarrierScript[4];
+
+    public MultipleSensorScript[] rangerScripts = new MultipleSensorScript[4];
 
     public int[] currentOrientation = { 0, 0, 0, 0 };
 
@@ -34,7 +36,8 @@ public class StandardLightScript : MonoBehaviour
     {
         for (int count = 0; count < barriers.Length; count++)
         {
-            scripts[count] = barriers[count].GetComponent<LightBarrierScript>();
+            barrierScripts[count] = barriers[count].GetComponent<LightBarrierScript>();
+            rangerScripts[count] = multiRangers[count].GetComponent<MultipleSensorScript>();
         }
 
         isRunning = true;
@@ -46,7 +49,7 @@ public class StandardLightScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // If this car is trying to turn left and it would be unsafe to do so, tell it to not ignore barriers.
     }
 
     public IEnumerator switchTo(int[] orientation, float waitTime = 0, bool isYellow=false)
@@ -74,7 +77,7 @@ public class StandardLightScript : MonoBehaviour
 
         for (int i = 0; i < orientation.Length; i++)
         {
-            scripts[i].makeColor(orientation[i] - ((orientation[i] == 2 && isYellow) ? 1 : 0));
+            barrierScripts[i].makeColor(orientation[i] - ((orientation[i] == 2 && isYellow) ? 1 : 0));
         }
         currentOrientation = orientation;
     }
