@@ -113,24 +113,36 @@ public class MoveRight : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         layerMask = maskWithBarriers;
-        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         float distanceBetween = (collision.transform.position - this.transform.position).magnitude;
 
-        if (lookForTPs && distanceBetween < 1f)
+        Debug.Log(distanceBetween);
+        Debug.DrawLine(collision.transform.position, transform.position);
+
+        if (lookForTPs && distanceBetween < 0.5f)
         {
             Debug.Log("turn " + distanceBetween);
-            if (turnSignal == -1)
-            {
-                transform.Rotate(0f, 0f, 45f);
-                myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
+            transform.position = collision.transform.position;
+            turn(turnSignal);
+        }
+    }
 
-                // To avoid multiple detection of same TP
-                lookForTPs = false;
-            }
+    private void turn(int turnSignal)
+    {
+        if (turnSignal == 0)
+        {
+            return;
+        }
+
+        if (turnSignal == -1) {
+            transform.Rotate(0f, 0f, 45f);
+            myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
+
+            // To avoid multiple detection of same TP
+            lookForTPs = false;
         }
     }
 }
