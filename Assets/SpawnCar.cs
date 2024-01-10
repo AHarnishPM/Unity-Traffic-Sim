@@ -27,7 +27,7 @@ public class SpawnCar : MonoBehaviour
             if (carsLeft > 0)
             {
                 timer = 0;
-                GameObject newCar = Instantiate(car, transform.position, transform.rotation);
+                GameObject newCar = Instantiate(car, transform.position, this.transform.rotation);
                 var carScript = newCar.GetComponent<MoveRight>();
                 var roadScript = road.GetComponent<RoadInfo>();
 

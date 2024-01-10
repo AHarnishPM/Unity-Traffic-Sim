@@ -118,9 +118,11 @@ public class MoveRight : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (lookForTPs && (collision.transform.position - transform.position).magnitude < 1)
+        float distanceBetween = (collision.transform.position - this.transform.position).magnitude;
+
+        if (lookForTPs && distanceBetween < 1f)
         {
-            Debug.Log("turn");
+            Debug.Log("turn " + distanceBetween);
             if (turnSignal == -1)
             {
                 transform.Rotate(0f, 0f, 45f);
