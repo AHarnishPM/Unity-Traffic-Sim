@@ -111,5 +111,6 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  viewDistance: 1000
+  viewDistance: 100
   numHits: 0
+  visualizeViewDistance: 1
