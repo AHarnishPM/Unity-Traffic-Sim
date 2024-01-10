@@ -22,8 +22,9 @@ public class MoveRight : MonoBehaviour
     public float comfyBrakingDecelleration = 2.5f;
     public float exponent = 4;
     public float timer = 0;
+    private bool isTurning = false;
 
-    public int turnSignal; // -1 left, 0 straight, 1 right
+    public int turnSignal = 1; // -1 left, 0 straight, 1 right
     private bool lookForTPs = true;
 
 
@@ -58,7 +59,7 @@ public class MoveRight : MonoBehaviour
         // Adjusts acceleration if any cars are ahead
         RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 200f, layerMask);
 
-        if (hit.collider != null)
+        if (hit.collider != null && !isTurning)
         {
             float netDistance = hit.distance - (myCollider.bounds.size.x / 2f);
 
@@ -135,13 +136,13 @@ public class MoveRight : MonoBehaviour
     {
         if (turnSignal == -1) {
             transform.Rotate(0f, 0f, 45f);
-
+            isTurning = (isTurning) ? false : true;
         }
 
         else if (turnSignal == 1)
         {
             transform.Rotate(0f, 0f, -45f);
-
+            isTurning = (isTurning) ? false : true;
         }
         myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
 
