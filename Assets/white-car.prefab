@@ -274,9 +274,15 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 192
-  maskWithBarriers:
+  maskLightBarriers:
     serializedVersion: 2
     m_Bits: 192
+  maskTurnBarriers:
+    serializedVersion: 2
+    m_Bits: 320
+  maskBothBarriers:
+    serializedVersion: 2
+    m_Bits: 448
   maskNoBarriers:
     serializedVersion: 2
     m_Bits: 64

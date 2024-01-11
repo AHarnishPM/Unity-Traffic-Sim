@@ -10,7 +10,9 @@ public class MoveRight : MonoBehaviour
     public Rigidbody2D myRigidBody;
     public Collider2D myCollider;
     public LayerMask layerMask;
-    public LayerMask maskWithBarriers;
+    public LayerMask maskLightBarriers;
+    public LayerMask maskTurnBarriers;
+    public LayerMask maskBothBarriers;
     public LayerMask maskNoBarriers;
     public GameObject leftSignal;
     public GameObject rightSignal;
@@ -37,7 +39,7 @@ public class MoveRight : MonoBehaviour
     {
         desiredVelocity = speedLimit;
         myRigidBody.velocity = transform.rotation * Vector2.up * desiredVelocity;
-        layerMask = maskWithBarriers;
+        layerMask = maskLightBarriers;
     }
 
     // Update is called once per frame
@@ -103,7 +105,7 @@ public class MoveRight : MonoBehaviour
 
     public void recognizeBarriers()
     {
-        layerMask = maskWithBarriers;
+        layerMask = maskLightBarriers;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -115,7 +117,7 @@ public class MoveRight : MonoBehaviour
     // After a car passes through the intersection, stop ignoring barriers.
     private void OnTriggerExit2D(Collider2D other)
     {
-        layerMask = maskWithBarriers;
+        layerMask = maskLightBarriers;
         lookForTPs = true;
     }
 
