@@ -100,7 +100,7 @@ public class StandardLightScript : MonoBehaviour
                                 safeLeft = false;
                             }
 
-                            if (safeLeft)
+                            if (safeLeft || carScript.hasLeftClearance)
                             {
                                 carScript.ignoreBarriers();
                                 carScript.hasLeftClearance = true;
@@ -181,11 +181,20 @@ public class StandardLightScript : MonoBehaviour
             }
 
             // Remove leftClearance whenever a light becomes red?
+
         }
 
         for (int i = 0; i < orientation.Length; i++)
         {
             barrierScripts[i].makeColor(orientation[i] - ((orientation[i] == 2 && isYellow) ? 1 : 0));
+
+            if (orientation[i] == 0)
+            {
+                foreach (RaycastHit2D hit in rangerScripts[i].GetComponent<MultipleSensorScript>().hitList)
+                {
+                    hit.collider.GetComponent<MoveRight>().hasLeftClearance = false;
+                }
+            }
         }
         currentOrientation = orientation;
     }
