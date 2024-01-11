@@ -11,8 +11,6 @@ public class MoveRight : MonoBehaviour
     public Collider2D myCollider;
     public LayerMask layerMask;
     public LayerMask maskLightBarriers;
-    public LayerMask maskTurnBarriers;
-    public LayerMask maskBothBarriers;
     public LayerMask maskNoBarriers;
     public GameObject leftSignal;
     public GameObject rightSignal;
@@ -24,7 +22,7 @@ public class MoveRight : MonoBehaviour
     public float comfyBrakingDecelleration = 2.5f;
     public float exponent = 4;
     public float timer = 0;
-    private bool isTurning = false;
+    public bool isTurning = false;
 
     public int turnSignal = 1; // -1 left, 0 straight, 1 right
     private bool lookForTPs = true;
@@ -33,6 +31,7 @@ public class MoveRight : MonoBehaviour
     public float speedLimit;
     public float desiredVelocity;
     public bool hasYellowClearance = false;
+    public bool hasRedClearance = false;
 
 
     // Start is called before the first frame update
@@ -120,18 +119,16 @@ public class MoveRight : MonoBehaviour
     {
         layerMask = maskLightBarriers;
         lookForTPs = true;
+        hasRedClearance = false;
+        hasYellowClearance = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         float distanceBetween = (collision.transform.position - this.transform.position).magnitude;
 
-        Debug.Log(distanceBetween);
-        Debug.DrawLine(collision.transform.position, transform.position);
-
         if (lookForTPs && distanceBetween < 0.5f)
         {
-            Debug.Log("turn " + distanceBetween);
             transform.position = collision.transform.position;
             tryTurn(turnSignal);
         }

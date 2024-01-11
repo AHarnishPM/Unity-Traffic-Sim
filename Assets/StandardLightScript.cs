@@ -5,6 +5,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class StandardLightScript : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class StandardLightScript : MonoBehaviour
 
     public float leftGreenGap = 5;
 
+    public float rightRedGap = 5;
+
     private float lightExtents;
 
     // Start is called before the first frame update
@@ -46,7 +49,7 @@ public class StandardLightScript : MonoBehaviour
 
         isRunning = true;
 
-        lightExtents = this.GetComponent<BoxCollider2D>().size.x / 2;
+        lightExtents = this.GetComponent<BoxCollider2D>().bounds.extents.x;
 
         startCycle();
 
@@ -102,13 +105,50 @@ public class StandardLightScript : MonoBehaviour
                     }
                     else { carScript.ignoreBarriers(); } // Ignore barriers on a green or acceptable yellow if not turning left
                 }
+                else if (carScript.turnSignal == 1 && !carScript.hasRedClearance)
+                {
+                    bool safeRight = true;
+
+                    // Must be stopped at red
+                    if (hit.rigidbody.velocity.magnitude > 0.4 || hit.distance > lightExtents * 1.5)
+                    {
+                        safeRight = false;
+                    }
+
+                    // Lane from left cannot have cars within gap going straight
+                    else if (rangerScripts[(i + 3)%4].numHits > 0 
+                        && rangerScripts[(i + 3) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 3) % 4].hitList[0].distance
+                        && rangerScripts[(i + 3) % 4].hitList[0].collider.gameObject.GetComponent<MoveRight>().turnSignal == 0)
+                    {
+
+                        safeRight = false;
+                    }
+
+                    // Opposite lane cannot have cars within gap turning left
+                    else if (rangerScripts[(i + 2) % 4].numHits > 0 
+                        && rangerScripts[(i + 2) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 2) % 4].hitList[0].distance
+                        && rangerScripts[(i + 2) % 4].hitList[0].collider.gameObject.GetComponent<MoveRight>().turnSignal == -1)
+                    {
+
+
+                        safeRight = false;
+                    }
+
+                    if (safeRight)
+                    {
+                        carScript.hasRedClearance = true;
+                        carScript.ignoreBarriers();
+                        carScript.isTurning = true;
+                        
+                    }
+                    else
+                    {
+                        carScript.recognizeBarriers();
+                    }
+                    
+                }
                 else { carScript.recognizeBarriers(); } // Respect barriers on a red or unacceptable yellow
-                
-
-                
             }
-
-            
         }
     }
 
