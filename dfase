@@ -1,0 +1,427 @@
+[33mcommit 0930522f0d093d21feb305d4dec1d6e07a424073[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 10 15:34:35 2024 -0500
+
+    Right turns work except slow down b/c cars in other lane are close
+
+[33mcommit 424316146e92cc1dbc6de9173c996fcb1d074073[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 10 15:05:44 2024 -0500
+
+    Added two light scene
+
+[33mcommit 31167938401c2dbd41af018e7b515fcda217d170[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 10 14:49:19 2024 -0500
+
+    Option to visualize view distance of traffic sensors in each direction
+
+[33mcommit b71688f8ad52e71ca74d7c31a42cd2033418d69f[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 10 14:35:04 2024 -0500
+
+    Turn points allign cars with their position when turning
+
+[33mcommit c84fec320cfe56a79d54f92f6edc00c73ee7a927[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 10 13:35:01 2024 -0500
+
+    Alligned spawners and turn points symmetrically, bug where threshold for turning distance breaks under 1
+
+[33mcommit 92aa2f5e44cb13874c20007353558f5fa4f1759c[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 9 15:39:35 2024 -0500
+
+    Left turning is functional w/o checking for safety
+
+[33mcommit 1923146cecf83046f09a79be154ca8bdfc9580db[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 9 14:55:43 2024 -0500
+
+    Made set of turning points for cars to turn on
+
+[33mcommit 9752798950f3fd322a40bc63ef338ef1ab949b28[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 9 14:36:24 2024 -0500
+
+    Turning by rotating on collision exit
+
+[33mcommit 73d893a6801e3034ab8fb39a4bd73b9648c6d474[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 9 13:26:41 2024 -0500
+
+    Tried exterbnal spline script
+
+[33mcommit 9ab1d584a829f001c13d88c2157927e03d00ecff[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 9 13:09:33 2024 -0500
+
+    Gathered ranger scripts
+
+[33mcommit 29af1109a66d42fce86bea90a147ea6c21b28cae[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 9 12:11:37 2024 -0500
+
+    Installed splines package
+
+[33mcommit 4b3f88c9a595cd913fc312c63e438c785b1ea42e[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Fri Jan 5 16:08:01 2024 -0500
+
+    Yellow lights function correctly
+
+[33mcommit 1d54ba144cb17dc0ba4447aac3ab23fe61d1af8c[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Fri Jan 5 13:49:42 2024 -0500
+
+    Light sequence is semi realistic, fixed bug in it
+
+[33mcommit 4fc06cd9eff0a88b5b4b2caeb554a8bff38f34f6[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Jan 4 21:25:10 2024 -0500
+
+    Changed from worker to coroutine to maintain consistency with time rate
+
+[33mcommit 4f220e76b6bdfff04f5b064b5ac6139f729a4c64[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 17:39:29 2024 -0500
+
+    Clarified onObject
+
+[33mcommit 17f9caa9a1485ebdc46d80567e810bac4f425281[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 16:48:38 2024 -0500
+
+    Added isYellow parameter for setting colors in transition periods
+
+[33mcommit 95253f65424209885960fa17ff0227533ad400cb[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 16:32:06 2024 -0500
+
+    Killed worker thread after game exits
+
+[33mcommit 76e660fcaf27dd89b8d567c336e56cef9eac9232[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 16:13:51 2024 -0500
+
+    Light sequencing using worker thread
+
+[33mcommit 402b62432643ac9d2e6cca1e937a536e1486bf27[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 14:30:19 2024 -0500
+
+    Light transitions are buggy
+
+[33mcommit b39a76ac832b227a371dd2ec902bcb574179da9e[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 12:48:45 2024 -0500
+
+    Built arrays for fields in SL script, used jagged array to implement light transitioning
+
+[33mcommit a8c946947df36984dd7f23638d9513e1cb9813c4[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Wed Jan 3 11:53:20 2024 -0500
+
+    Added orientations matrix, assigned components in SL prefab
+
+[33mcommit a2505b2fa73728d97d50a46aa2f71d922e642ac6[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 22:00:44 2024 -0500
+
+    Light updating methods are working now
+
+[33mcommit 4be32ec208273ebfae1e6cc37c84a9ff6669debf[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 21:55:31 2024 -0500
+
+    Fixed prefabs not being used in Standard Light children
+
+[33mcommit ae255f2863c3ee1e1d3901bafa3e18a4d90543e7[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 21:05:11 2024 -0500
+
+    Standard light prefab
+
+[33mcommit 1fa92b8dc0478038ac269b66c1de3b8b8dce3dc8[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 21:04:30 2024 -0500
+
+    Testing prefab sync
+
+[33mcommit 0fd7e7043aeb4666d09074c287a96a6f54c2d4be[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 15:16:12 2024 -0500
+
+    Added public light changing functions to light barrier script
+
+[33mcommit 9d8d39be2f5b57bb9bf80273aec87a393ca20f7d[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 14:55:50 2024 -0500
+
+    Created Standard Light prefab
+
+[33mcommit d56d8016d3373440c3fee5528b5a58af303b46ce[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 14:54:36 2024 -0500
+
+    Labeled + oriented rangers and barriers in Standard Light
+
+[33mcommit 35ed573c88c0663c91c77c59b324937fe1be2915[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 14:31:24 2024 -0500
+
+    Multiple ranger prefab, colliders to barriers
+
+[33mcommit 064243b344047dd7437b5b2c6d5f4e2ece9b93bf[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 14:06:57 2024 -0500
+
+    added view distance var for single sensor
+
+[33mcommit 4c3cfb16746d35803fb23ac5410964304bdee608[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 13:59:00 2024 -0500
+
+    Filled stnadard light with barriers
+
+[33mcommit 1939af89dc2de41061820c7fca689b29ca1d52c2[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 13:44:58 2024 -0500
+
+    previous commit missed some
+
+[33mcommit aef4dd90a178036ddda1c49a85d80980f4d6ec39[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Tue Jan 2 13:44:30 2024 -0500
+
+    Added traffic light sprites/object
+
+[33mcommit 2422e39474215ac28c495c363d3a0cdf181dcf7b[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 18:39:58 2024 -0500
+
+    Added turn signal
+
+[33mcommit c317b654a9e4ce39b2153f222f6bdaece7b9b5bc[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 18:06:59 2024 -0500
+
+    Made prefab for 2way, tested rotation
+
+[33mcommit 697731af92b44c9a3c62a24427320cfc7bcd5964[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 18:03:32 2024 -0500
+
+    Working 2 way stop w/ no turning
+
+[33mcommit 383b4256045cae317e90c1715d6cda62dc7565f6[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 16:07:00 2024 -0500
+
+    Added rangers/sensors to stop intersection
+
+[33mcommit bc6f1ac14dc20e9f9c88db53d59cb0cda08ca55d[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 12:15:35 2024 -0500
+
+    updated IDM params, speed limit info stored in road objects
+
+[33mcommit 0bc62fb656e37a54e7f30a57599f3dc8b23c2161[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 11:35:06 2024 -0500
+
+    Replaced roads with road prefab
+
+[33mcommit 245eabf0561ebdd53c4ed2fee881dd2d57164351[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 11:28:35 2024 -0500
+
+    Start direction by transform.rotation instead of public field
+
+[33mcommit 38329078e08309328aedce0ba0e781f3c2e25b92[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Jan 1 10:55:49 2024 -0500
+
+    Barrier prefab + layer for intersection
+
+[33mcommit 279df8aa204a850113c5bbaa6d14bf14633d4501[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Sun Dec 31 00:08:39 2023 -0500
+
+    Trying onElement field
+
+[33mcommit bda76f3435320862dda7a437e3df5c2a029c743a[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Sat Dec 30 23:33:08 2023 -0500
+
+    Created stop intersection
+
+[33mcommit 38c434fad2aff945d7d412b4793ec3d344db5d01[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Sat Dec 30 23:13:16 2023 -0500
+
+    Moved accidental program out oops
+
+[33mcommit c7aa9f31ceb4ccbf75d30f14c7919bddf3751127[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Sat Dec 30 23:03:07 2023 -0500
+
+    Combined car classes to one class
+
+[33mcommit cbb85a64e007edacdf8c000049409d41d04ded16[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Fri Dec 29 04:34:11 2023 -0500
+
+    Added roads in all directions w/ spawners
+
+[33mcommit df2958341095a60fa1ff9bb2c5e920596e7878e7[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Fri Dec 29 03:02:22 2023 -0500
+
+    tweaked spawner
+
+[33mcommit 1edc452f743b88fa0cc983c44306d694dddb6f5c[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Fri Dec 29 02:59:30 2023 -0500
+
+    Used IDM formula for speed calculation
+
+[33mcommit 80db12dafa05de12b8d9ff8d1a53e753c7b93836[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 21:00:54 2023 -0500
+
+    Standardized distances to 1 meter, made car/road sizes realistic
+
+[33mcommit e815f38f4c2fd9fd582f554ddb2aa683a08a168d[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 19:58:38 2023 -0500
+
+    Implemented braking feature, needs more work
+
+[33mcommit 2c9004e6fbad715385a78f7e8b2db2a3bd9dbabd[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 18:41:15 2023 -0500
+
+    Accounted for collider size in ray calculations
+
+[33mcommit 5e4a40c26280a7ccc816e5b9f45005448dcb7520[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 18:18:44 2023 -0500
+
+    Added raycast from car objects
+
+[33mcommit 7b076739e9ad3f9bbed1fee9066deaaaec074481[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 16:45:16 2023 -0500
+
+    moved assets out of folders
+
+[33mcommit 1ffbee6249ca93deaa29ffc33ff3e03e565f39b1[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 16:41:44 2023 -0500
+
+    made spawner a child of road
+
+[33mcommit 89f91baf2c3fd287dcd03109fc3fdf2d5cccbd6b[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 16:39:22 2023 -0500
+
+    alligned car spawner
+
+[33mcommit 271572ded976a8907b5d794874abdfa463f3d262[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 16:35:26 2023 -0500
+
+    Revert "Took items out of folders, renamed"
+    
+    This reverts commit d3cd4dead2acf21f72ef65e260728bad3535d32d.
+
+[33mcommit d3cd4dead2acf21f72ef65e260728bad3535d32d[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 16:25:15 2023 -0500
+
+    Took items out of folders, renamed
+
+[33mcommit aa6fcea13f733b4cfd14dca183fae5f89676c53d[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 28 16:18:06 2023 -0500
+
+    Limited # of car spawns
+
+[33mcommit e2735d1c72f4cd4a529ac6251ae0bb8586bd680e[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Mon Dec 25 20:35:51 2023 -0500
+
+    centered road
+
+[33mcommit 4df6af5a07e09af88904c4066ba3612378b66620[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 18:03:12 2023 -0500
+
+    Added garbage collection for cars
+
+[33mcommit 996d1024388966996a206a32d2dd4c01e161a147[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 17:54:05 2023 -0500
+
+    Added car spawner
+
+[33mcommit 18001ac2d0a404621774a3fe9949b037214d9dde[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 17:35:44 2023 -0500
+
+    reorganized filestructure
+
+[33mcommit ad520efea90e70a2269ff9c7143ee87b87e4dc1f[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 17:33:19 2023 -0500
+
+    saved, previous commit
+
+[33mcommit 1abb46a3161fdfac897d358b6fc920f4dc4c023c[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 17:29:35 2023 -0500
+
+    white-car moves right
+
+[33mcommit 1c35ab94f693858baaa30e003fa18f551d24a7b2[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 17:12:49 2023 -0500
+
+    Added road sprite
+
+[33mcommit eb031fa400a0a0b50cc3c8d84a03ba257265ac19[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 16:55:14 2023 -0500
+
+    Moved car
+
+[33mcommit 8c2aa7418442f3a945c8ec70f3ce05b4024c4d71[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 16:50:31 2023 -0500
+
+    Made two smaller car sprites, updated SampleScene to Scene1
+
+[33mcommit 01405520204227719cc54c4f71aa5e2424e81687[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 16:32:56 2023 -0500
+
+    Create README.md
+
+[33mcommit 4bc72de00b16543c817689da66af4cc54d2c00b3[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 16:25:01 2023 -0500
+
+    Saved new scene with updated sprite
+
+[33mcommit 45474a8f76bf99718240937308814c786c438869[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 16:22:35 2023 -0500
+
+    updated car sprite
+
+[33mcommit 3049dd72b99152d4f7d0900b0e5f4586ffaf5b34[m
+Author: AHarnish <aaronjharnish@gmail.com>
+Date:   Thu Dec 21 15:44:09 2023 -0500
+
+    Intial commit, .gitignore and base files
