@@ -12,11 +12,12 @@ public class SpawnCar : MonoBehaviour
     public float spawnPct = 1;
     public float leftPct = 0.25f;
     public float rightPct = 0.25f;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+}
 
     // Update is called once per frame
     void Update()

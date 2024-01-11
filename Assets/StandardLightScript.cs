@@ -38,6 +38,8 @@ public class StandardLightScript : MonoBehaviour
 
     private float lightExtents;
 
+    private float barrierHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,7 @@ public class StandardLightScript : MonoBehaviour
         isRunning = true;
 
         lightExtents = this.GetComponent<BoxCollider2D>().bounds.extents.x;
+        barrierHeight = barriers[0].GetComponent<BoxCollider2D>().bounds.extents.y * 2;
 
         startCycle();
 
@@ -87,6 +90,11 @@ public class StandardLightScript : MonoBehaviour
                             // If the other car is turning left it's okay
                             int otherTurn = closestHit.collider.gameObject.GetComponent<MoveRight>().turnSignal;
 
+                            if (closestHit.distance < lightExtents * 5 && otherTurn != -1)
+                            {
+                                safeLeft = false;
+                            }
+
                             if (myTime + leftGreenGap > otherTime && otherTurn != -1)
                             {
                                 safeLeft = false;
@@ -95,6 +103,8 @@ public class StandardLightScript : MonoBehaviour
                             if (safeLeft)
                             {
                                 carScript.ignoreBarriers();
+                                carScript.hasLeftClearance = true;
+                                Debug.Log("Gave left clearance");
                             }
                             else
                             {
@@ -105,38 +115,37 @@ public class StandardLightScript : MonoBehaviour
                     }
                     else { carScript.ignoreBarriers(); } // Ignore barriers on a green or acceptable yellow if not turning left
                 }
-                else if (carScript.turnSignal == 1 && !carScript.hasRedClearance)
+                else if (carScript.turnSignal == 1)
                 {
                     bool safeRight = true;
 
                     // Must be stopped at red
-                    if (hit.rigidbody.velocity.magnitude > 0.4 || hit.distance > lightExtents * 1.5)
+                    if (hit.rigidbody.velocity.magnitude > 0.4 || hit.distance > lightExtents * 2.5)
                     {
                         safeRight = false;
                     }
 
                     // Lane from left cannot have cars within gap going straight
                     else if (rangerScripts[(i + 3)%4].numHits > 0 
-                        && rangerScripts[(i + 3) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 3) % 4].hitList[0].distance
+                        && rangerScripts[(i + 3) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 3) % 4].hitList[0].distance - lightExtents - barrierHeight
                         && rangerScripts[(i + 3) % 4].hitList[0].collider.gameObject.GetComponent<MoveRight>().turnSignal == 0)
                     {
-
+                        Debug.Log("Reason 2");
                         safeRight = false;
                     }
 
                     // Opposite lane cannot have cars within gap turning left
                     else if (rangerScripts[(i + 2) % 4].numHits > 0 
-                        && rangerScripts[(i + 2) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 2) % 4].hitList[0].distance
+                        && rangerScripts[(i + 2) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 2) % 4].hitList[0].distance - lightExtents - barrierHeight
                         && rangerScripts[(i + 2) % 4].hitList[0].collider.gameObject.GetComponent<MoveRight>().turnSignal == -1)
                     {
 
-
+                        Debug.Log("Reason 3");
                         safeRight = false;
                     }
 
-                    if (safeRight)
+                    if (safeRight || carScript.hasRedClearance)
                     {
-                        Debug.Log("Right on red");
                         carScript.hasRedClearance = true;
                         carScript.ignoreBarriers();
                         
@@ -170,6 +179,8 @@ public class StandardLightScript : MonoBehaviour
                     }
                 }
             }
+
+            // Remove leftClearance whenever a light becomes red?
         }
 
         for (int i = 0; i < orientation.Length; i++)

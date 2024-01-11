@@ -32,6 +32,7 @@ public class MoveRight : MonoBehaviour
     public float desiredVelocity;
     public bool hasYellowClearance = false;
     public bool hasRedClearance = false;
+    public bool hasLeftClearance = false;
 
 
     // Start is called before the first frame update
@@ -110,7 +111,10 @@ public class MoveRight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (!isTurning)
+        {
+            this.gameObject.layer = 8;
+        }
         
     }
 
@@ -121,6 +125,12 @@ public class MoveRight : MonoBehaviour
         lookForTPs = true;
         hasRedClearance = false;
         hasYellowClearance = false;
+        hasLeftClearance = false;
+
+        if (!isTurning)
+        {
+            this.gameObject.layer = 6;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -147,6 +157,7 @@ public class MoveRight : MonoBehaviour
             isTurning = (isTurning) ? false : true;
         }
         myRigidBody.velocity = transform.rotation * Vector2.up * myRigidBody.velocity.magnitude;
+
 
         lookForTPs = false;
     }

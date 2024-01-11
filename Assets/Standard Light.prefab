@@ -174,7 +174,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentOrientation: 00000000000000000000000000000000
-  leftGreenGap: 4
+  leftGreenGap: 8
+  rightRedGap: 5
 --- !u!114 &5057414888463402856
 MonoBehaviour:
   m_ObjectHideFlags: 0
