@@ -32,6 +32,7 @@ public class MoveRight : MonoBehaviour
 
     public float speedLimit;
     public float desiredVelocity;
+    public bool hasYellowClearance = false;
 
 
     // Start is called before the first frame update
@@ -98,7 +99,7 @@ public class MoveRight : MonoBehaviour
         }
     }
     // Car ignores barriers, used to let through stop signs and yellow lights.
-    public void ignoreAllBarriers()
+    public void ignoreBarriers()
     {
         layerMask = maskNoBarriers;
     }

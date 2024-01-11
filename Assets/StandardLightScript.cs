@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class StandardLightScript : MonoBehaviour
@@ -30,7 +31,9 @@ public class StandardLightScript : MonoBehaviour
 
     private bool isRunning;
 
-    public float leftGreenGap = 4;
+    public float leftGreenGap = 5;
+
+    private float lightExtents;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,8 @@ public class StandardLightScript : MonoBehaviour
         }
 
         isRunning = true;
+
+        lightExtents = this.GetComponent<BoxCollider2D>().size.x / 2;
 
         startCycle();
 
@@ -60,18 +65,47 @@ public class StandardLightScript : MonoBehaviour
             {
                 MoveRight carScript = hit.collider.gameObject.GetComponent<MoveRight>();
 
-                // If light is green
-                if (barrierScripts[i].lightStatus == 2)
+                // If light is green or would make it through on yellow
+                if (barrierScripts[i].lightStatus == 2 || (barrierScripts[i].lightStatus == 1 && carScript.hasYellowClearance))
                 {
                     // If the car is turning left
                     if (carScript.turnSignal == -1)
                     {
-                        // Check if it is safe to do so
+                        // If there are cars in the opposite lane
+                        if (rangerScripts[(i+2)%4].numHits > 0)
+                        {
+                            bool safeLeft = true;
 
-                        // Will car reach the intersection leftGreenGap seconds before the closest car in the opposite lane
-                        
+                            var closestHit = rangerScripts[(i + 2) % 4].hitList[0];
+
+                            float myTime = hit.distance / hit.rigidbody.velocity.magnitude;
+                            float otherTime = closestHit.distance / closestHit.rigidbody.velocity.magnitude;
+
+                            // If the other car is turning left it's okay
+                            int otherTurn = closestHit.collider.gameObject.GetComponent<MoveRight>().turnSignal;
+
+                            if (myTime + leftGreenGap > otherTime && otherTurn != -1)
+                            {
+                                safeLeft = false;
+                            }
+
+                            if (safeLeft)
+                            {
+                                carScript.ignoreBarriers();
+                            }
+                            else
+                            {
+                                carScript.recognizeBarriers();
+                            }
+                        }
+                        else { carScript.ignoreBarriers(); } // Ignore barriers if there are no cars in the opposite lane
                     }
+                    else { carScript.ignoreBarriers(); } // Ignore barriers on a green or acceptable yellow if not turning left
                 }
+                else { carScript.recognizeBarriers(); } // Respect barriers on a red or unacceptable yellow
+                
+
+                
             }
 
             
@@ -82,7 +116,7 @@ public class StandardLightScript : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        if (isYellow )
+        if (isYellow)
         {
             // Tell cars that will make it through the yellow in 3 seconds at current velocity to ignore the barrier 
             for (int i = 0; i < orientation.Length; i++)
@@ -92,10 +126,7 @@ public class StandardLightScript : MonoBehaviour
                     foreach (RaycastHit2D hit in multiRangers[i].GetComponent<MultipleSensorScript>().hitList)
                     {
                         // If they will reach the ranger (halfway through the intersection)
-                        if (hit.rigidbody.velocity.magnitude * 3 > hit.distance)
-                        {
-                            hit.collider.GetComponent<MoveRight>().ignoreAllBarriers();
-                        }
+                        hit.collider.GetComponent<MoveRight>().hasYellowClearance = (hit.rigidbody.velocity.magnitude * 3 > hit.distance);
                     }
                 }
             }
