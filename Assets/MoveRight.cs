@@ -54,6 +54,8 @@ public class MoveRight : MonoBehaviour
         // Here I will use the Intelligent Driver Model (IDM) as outlined
         // on a Wikipedia page https://en.wikipedia.org/wiki/Intelligent_driver_model.
 
+        // TODO: Better versions of this model exist, should probably upgrade.
+
         float accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
 
         // Adjusts acceleration if any cars are ahead
