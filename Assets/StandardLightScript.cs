@@ -136,9 +136,9 @@ public class StandardLightScript : MonoBehaviour
 
                     if (safeRight)
                     {
+                        Debug.Log("Right on red");
                         carScript.hasRedClearance = true;
                         carScript.ignoreBarriers();
-                        carScript.isTurning = true;
                         
                     }
                     else
