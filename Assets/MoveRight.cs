@@ -98,7 +98,7 @@ public class MoveRight : MonoBehaviour
         }
     }
     // Car ignores barriers, used to let through stop signs and yellow lights.
-    public void ignoreBarriers()
+    public void ignoreAllBarriers()
     {
         layerMask = maskNoBarriers;
     }

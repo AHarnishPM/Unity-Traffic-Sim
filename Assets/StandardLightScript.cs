@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using UnityEngine;
 
@@ -19,17 +20,17 @@ public class StandardLightScript : MonoBehaviour
     public int[][] orientations =
     {
         new int[] {0, 0, 0, 0 }, // All blocked, default orientation
-        new int[] { 0, 2, 2, 0 }, // Horizontal free, vertical blocked
-        new int[] { 2, 0, 0, 2 }, // Vertical free, horizontal blocked
+        new int[] { 0, 2, 0, 2 }, // Horizontal free, vertical blocked
+        new int[] { 2, 0, 2, 0 }, // Vertical free, horizontal blocked
         new int[] { 2, 0, 0, 0 }, // Top open
         new int[] { 0, 2, 0, 0 }, // Left open
-        new int[] { 0, 0, 2, 0 }, // Right open
-        new int[] { 0, 0, 0, 2 }  // Bottom open
+        new int[] { 0, 0, 2, 0 }, // Bottom open
+        new int[] { 0, 0, 0, 2 }  // Right open
     };
 
     private bool isRunning;
 
-    Queue<Action> jobs = new Queue<Action>();
+    public float leftGreenGap = 4;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,32 @@ public class StandardLightScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If this car is trying to turn left and it would be unsafe to do so, tell it to not ignore barriers.
+        // Tell all cars whether to ignore or respect barriers.
+
+        // For each ranger
+        for (int i = 0; i < multiRangers.Length; i++)
+        {
+            // For each car hit in ranger FOV
+            foreach (RaycastHit2D hit in rangerScripts[i].hitList)
+            {
+                MoveRight carScript = hit.collider.gameObject.GetComponent<MoveRight>();
+
+                // If light is green
+                if (barrierScripts[i].lightStatus == 2)
+                {
+                    // If the car is turning left
+                    if (carScript.turnSignal == -1)
+                    {
+                        // Check if it is safe to do so
+
+                        // Will car reach the intersection leftGreenGap seconds before the closest car in the opposite lane
+                        
+                    }
+                }
+            }
+
+            
+        }
     }
 
     public IEnumerator switchTo(int[] orientation, float waitTime = 0, bool isYellow=false)
@@ -65,10 +91,10 @@ public class StandardLightScript : MonoBehaviour
                 {
                     foreach (RaycastHit2D hit in multiRangers[i].GetComponent<MultipleSensorScript>().hitList)
                     {
-                        // If they will reach the ranger (halfway through the intersectio)
+                        // If they will reach the ranger (halfway through the intersection)
                         if (hit.rigidbody.velocity.magnitude * 3 > hit.distance)
                         {
-                            hit.collider.GetComponent<MoveRight>().ignoreBarriers();
+                            hit.collider.GetComponent<MoveRight>().ignoreAllBarriers();
                         }
                     }
                 }

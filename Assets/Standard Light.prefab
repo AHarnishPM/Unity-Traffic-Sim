@@ -156,13 +156,13 @@ MonoBehaviour:
   barriers:
   - {fileID: 5035424202856713039}
   - {fileID: 5289438725569584492}
-  - {fileID: 8161843226469734669}
   - {fileID: 1200431218557544995}
+  - {fileID: 8161843226469734669}
   multiRangers:
   - {fileID: 1200322277515145644}
   - {fileID: 1465064933363116053}
-  - {fileID: 7423251768200029101}
   - {fileID: 6570495510225757437}
+  - {fileID: 7423251768200029101}
   barrierScripts:
   - {fileID: 0}
   - {fileID: 0}
@@ -174,6 +174,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentOrientation: 00000000000000000000000000000000
+  leftGreenGap: 4
 --- !u!114 &5057414888463402856
 MonoBehaviour:
   m_ObjectHideFlags: 0
