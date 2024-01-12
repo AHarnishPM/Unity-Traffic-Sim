@@ -76,54 +76,50 @@ public class StandardLightScript : MonoBehaviour
                 // If light is green or would make it through on yellow
                 if (barrierScripts[i].lightStatus == 2 || (barrierScripts[i].lightStatus == 1 && carScript.hasYellowClearance))
                 {
-                    // If the car is turning left
-                    if (carScript.turnSignal == -1)
+                    // If the car is turning left and isn't already cleared to do so
+                    if (carScript.turnSignal == -1 && !carScript.hasLeftClearance)
                     {
                         // If there are cars in the opposite lane
                         if (rangerScripts[(i+2)%4].numHits > 0)
                         {
                             List<RaycastHit2D> oppHits = rangerScripts[(i + 2) % 4].hitList;
+                            RaycastHit2D oppHit = oppHits[0];
 
                             bool canTurn = true;
 
-                            foreach(RaycastHit2D oppHit in oppHits)
+                            
+                            // If any opposing cars are not turning left and will reach the intersection less than leftGreenGap seconds after car, can't turn.
+                            GameObject oppCar = oppHit.collider.gameObject;
+                            MoveRight oppScript = oppCar.GetComponent<MoveRight>();
+
+                            float oppVelo = oppCar.GetComponent<Rigidbody2D>().velocity.magnitude;
+                            float myVelo = car.GetComponent<Rigidbody2D>().velocity.magnitude;
+
+                            float oppTime = oppHit.distance / oppVelo;
+                            float myTime = hit.distance / myVelo;
+
+                            float oppAccel = oppScript.accelerationAdj;
+                            float myAccelFree = carScript.accelerationFree;
+
+
+                            // This exits the checks to avoid deadlock
+                            if (!(oppScript.turnSignal == -1 && !oppScript.hasLeftClearance && myVelo < oppVelo && myVelo < 0.2f && oppVelo < 0.2f))
                             {
-                                // If any opposing cars are not turning left and will reach the intersection less than leftGreenGap seconds after car, can't turn.
-                                GameObject oppCar = oppHit.collider.gameObject;
-                                MoveRight oppScript = oppCar.GetComponent<MoveRight>();
-
-                                if (oppScript.turnSignal != -1)
+                                    
+                                // TODO: Can cause issues for lights where opposite can be red while you are green.
+                                if (myTime + leftGreenGap > oppTime || (oppVelo < 1 && oppScript.turnSignal != -1))
                                 {
-                                    float oppVelo = oppCar.GetComponent<Rigidbody2D>().velocity.magnitude;
-                                    float myVelo = car.GetComponent<Rigidbody2D>().velocity.magnitude;
-
-                                    float oppTime = oppHit.distance / oppCar.GetComponent<Rigidbody2D>().velocity.magnitude;
-                                    float myTime = hit.distance / car.GetComponent<Rigidbody2D>().velocity.magnitude;
-
-                                    float oppAccel = oppScript.accelerationAdj;
-                                    float myAccelFree = carScript.accelerationFree;
-
-                                    
-
-                                    // vf^2 = vi^2 + 2ad
-                                    
-
-                                    
-                                    if (myTime + leftGreenGap > oppTime)
-                                    {
-                                        // Special case to prevent deadlock
-                                        // If the other is stopped and you are moving slower than them (have spent more time there), go
-                                        if (!(oppCar.GetComponent<Rigidbody2D>().velocity.magnitude < 0.2 && hit.distance < oppHit.distance))
-                                        {
-                                            canTurn = false;
-                                            Debug.Log(oppTime + " - " + myTime);
-                                        }
+                                    canTurn = false;
                                         
-                                    }
                                 }
                             }
+                            
 
-                            if (canTurn) { carScript.ignoreBarriers(); }
+                            if (canTurn) 
+                            { 
+                                carScript.ignoreBarriers();
+                                carScript.hasLeftClearance = true;
+                            }
                             else { carScript.recognizeBarriers(); }
 
                         }
