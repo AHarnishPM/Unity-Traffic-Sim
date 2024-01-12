@@ -34,6 +34,9 @@ public class MoveRight : MonoBehaviour
     public bool hasRedClearance = false;
     public bool hasLeftClearance = false;
 
+    public float accelerationFree;
+    public float accelerationAdj;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +62,7 @@ public class MoveRight : MonoBehaviour
 
         // TODO: Better versions of this model exist, should probably upgrade.
 
-        float accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
+        accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
 
         // Adjusts acceleration if any cars are ahead
         RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 200f, layerMask);
@@ -74,12 +77,13 @@ public class MoveRight : MonoBehaviour
 
             float adjustment = maxAcceleration * Mathf.Pow(function / netDistance, 2);
 
-            accelerationFree -= adjustment;
+            accelerationAdj = accelerationFree - adjustment;
         }
+        else { accelerationAdj = accelerationFree; }
 
         // Applies acceleration
-        myRigidBody.velocity *= (myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime)) / myRigidBody.velocity.magnitude;
 
+        myRigidBody.velocity *= (myRigidBody.velocity.magnitude + (accelerationAdj * Time.deltaTime)) / myRigidBody.velocity.magnitude;
 
         if (Math.Abs(transform.position.x) > 185 || Math.Abs(transform.position.y) > 105)
         {

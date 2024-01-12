@@ -48,6 +48,6 @@ MonoBehaviour:
   road: {fileID: 0}
   SpawnRate: 5
   carsLeft: 4
-  spawnPct: 0.6
+  spawnPct: 0.4
   leftPct: 0.5
   rightPct: 0.25

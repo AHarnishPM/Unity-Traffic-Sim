@@ -69,7 +69,9 @@ public class StandardLightScript : MonoBehaviour
             // For each car hit in ranger FOV
             foreach (RaycastHit2D hit in rangerScripts[i].hitList)
             {
-                MoveRight carScript = hit.collider.gameObject.GetComponent<MoveRight>();
+                GameObject car = hit.collider.gameObject;
+
+                MoveRight carScript = car.GetComponent<MoveRight>();
 
                 // If light is green or would make it through on yellow
                 if (barrierScripts[i].lightStatus == 2 || (barrierScripts[i].lightStatus == 1 && carScript.hasYellowClearance))
@@ -80,36 +82,50 @@ public class StandardLightScript : MonoBehaviour
                         // If there are cars in the opposite lane
                         if (rangerScripts[(i+2)%4].numHits > 0)
                         {
-                            bool safeLeft = true;
+                            List<RaycastHit2D> oppHits = rangerScripts[(i + 2) % 4].hitList;
 
-                            var closestHit = rangerScripts[(i + 2) % 4].hitList[0];
+                            bool canTurn = true;
 
-                            float myTime = hit.distance / hit.rigidbody.velocity.magnitude;
-                            float otherTime = closestHit.distance / closestHit.rigidbody.velocity.magnitude;
-
-                            // If the other car is turning left it's okay
-                            int otherTurn = closestHit.collider.gameObject.GetComponent<MoveRight>().turnSignal;
-
-                            if (closestHit.distance < lightExtents * 9 && otherTurn != -1)
+                            foreach(RaycastHit2D oppHit in oppHits)
                             {
-                                safeLeft = false;
+                                // If any opposing cars are not turning left and will reach the intersection less than leftGreenGap seconds after car, can't turn.
+                                GameObject oppCar = oppHit.collider.gameObject;
+                                MoveRight oppScript = oppCar.GetComponent<MoveRight>();
+
+                                if (oppScript.turnSignal != -1)
+                                {
+                                    float oppVelo = oppCar.GetComponent<Rigidbody2D>().velocity.magnitude;
+                                    float myVelo = car.GetComponent<Rigidbody2D>().velocity.magnitude;
+
+                                    float oppTime = oppHit.distance / oppCar.GetComponent<Rigidbody2D>().velocity.magnitude;
+                                    float myTime = hit.distance / car.GetComponent<Rigidbody2D>().velocity.magnitude;
+
+                                    float oppAccel = oppScript.accelerationAdj;
+                                    float myAccelFree = carScript.accelerationFree;
+
+                                    
+
+                                    // vf^2 = vi^2 + 2ad
+                                    
+
+                                    
+                                    if (myTime + leftGreenGap > oppTime)
+                                    {
+                                        // Special case to prevent deadlock
+                                        // If the other is stopped and you are moving slower than them (have spent more time there), go
+                                        if (!(oppCar.GetComponent<Rigidbody2D>().velocity.magnitude < 0.2 && hit.distance < oppHit.distance))
+                                        {
+                                            canTurn = false;
+                                            Debug.Log(oppTime + " - " + myTime);
+                                        }
+                                        
+                                    }
+                                }
                             }
 
-                            if (myTime + leftGreenGap > otherTime && otherTurn != -1)
-                            {
-                                safeLeft = false;
-                            }
+                            if (canTurn) { carScript.ignoreBarriers(); }
+                            else { carScript.recognizeBarriers(); }
 
-                            if (safeLeft)
-                            {
-                                carScript.ignoreBarriers();
-                                carScript.hasLeftClearance = true;
-                                Debug.Log("Gave left clearance");
-                            }
-                            else
-                            {
-                                carScript.recognizeBarriers();
-                            }
                         }
                         else { carScript.ignoreBarriers(); } // Ignore barriers if there are no cars in the opposite lane
                     }
@@ -214,11 +230,11 @@ public class StandardLightScript : MonoBehaviour
     {
         if (!isRunning) { return; }
         StartCoroutine(switchTo(orientations[1]));
-        StartCoroutine(switchTo(orientations[1], 3, true));
-        StartCoroutine(switchTo(orientations[0], 6));
-        StartCoroutine(switchTo(orientations[2], 7, false));
-        StartCoroutine(switchTo(orientations[2], 10, true));
+        StartCoroutine(switchTo(orientations[1], 10, true));
         StartCoroutine(switchTo(orientations[0], 13));
-        StartCoroutine(waitToStartCycle(14));
+        StartCoroutine(switchTo(orientations[2], 15, false));
+        StartCoroutine(switchTo(orientations[2], 25, true));
+        StartCoroutine(switchTo(orientations[0], 28));
+        StartCoroutine(waitToStartCycle(30));
     }
 }
