@@ -90,7 +90,7 @@ public class StandardLightScript : MonoBehaviour
                             // If the other car is turning left it's okay
                             int otherTurn = closestHit.collider.gameObject.GetComponent<MoveRight>().turnSignal;
 
-                            if (closestHit.distance < lightExtents * 5 && otherTurn != -1)
+                            if (closestHit.distance < lightExtents * 9 && otherTurn != -1)
                             {
                                 safeLeft = false;
                             }
@@ -100,7 +100,7 @@ public class StandardLightScript : MonoBehaviour
                                 safeLeft = false;
                             }
 
-                            if (safeLeft || carScript.hasLeftClearance)
+                            if (safeLeft)
                             {
                                 carScript.ignoreBarriers();
                                 carScript.hasLeftClearance = true;
