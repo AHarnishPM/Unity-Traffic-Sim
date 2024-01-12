@@ -79,8 +79,8 @@ public class StandardLightScript : MonoBehaviour
                     // If the car is turning left and isn't already cleared to do so
                     if (carScript.turnSignal == -1 && !carScript.hasLeftClearance)
                     {
-                        // If there are cars in the opposite lane
-                        if (rangerScripts[(i+2)%4].numHits > 0)
+                        // If there are cars in the opposite lane and the opposite lane is not at a red light
+                        if (rangerScripts[(i+2)%4].numHits > 0 && barrierScripts[(i+2)%4].lightStatus != 0)
                         {
                             List<RaycastHit2D> oppHits = rangerScripts[(i + 2) % 4].hitList;
                             RaycastHit2D oppHit = oppHits[0];
@@ -98,8 +98,8 @@ public class StandardLightScript : MonoBehaviour
                             float oppTime = oppHit.distance / oppVelo;
                             float myTime = hit.distance / myVelo;
 
-                            float oppAccel = oppScript.accelerationAdj;
-                            float myAccelFree = carScript.accelerationFree;
+                            //float oppAccel = oppScript.accelerationAdj;
+                            //float myAccelFree = carScript.accelerationFree;
 
 
                             // This exits the checks to avoid deadlock
@@ -142,7 +142,6 @@ public class StandardLightScript : MonoBehaviour
                         && rangerScripts[(i + 3) % 4].hitList[0].rigidbody.velocity.magnitude * rightRedGap > rangerScripts[(i + 3) % 4].hitList[0].distance - lightExtents - barrierHeight
                         && rangerScripts[(i + 3) % 4].hitList[0].collider.gameObject.GetComponent<MoveRight>().turnSignal == 0)
                     {
-                        Debug.Log("Reason 2");
                         safeRight = false;
                     }
 
@@ -152,7 +151,6 @@ public class StandardLightScript : MonoBehaviour
                         && rangerScripts[(i + 2) % 4].hitList[0].collider.gameObject.GetComponent<MoveRight>().turnSignal == -1)
                     {
 
-                        Debug.Log("Reason 3");
                         safeRight = false;
                     }
 

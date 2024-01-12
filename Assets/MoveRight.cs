@@ -34,8 +34,8 @@ public class MoveRight : MonoBehaviour
     public bool hasRedClearance = false;
     public bool hasLeftClearance = false;
 
-    public float accelerationFree;
-    public float accelerationAdj;
+    //public float accelerationFree;
+    //public float accelerationAdj;
 
 
     // Start is called before the first frame update
@@ -61,8 +61,16 @@ public class MoveRight : MonoBehaviour
         // on a Wikipedia page https://en.wikipedia.org/wiki/Intelligent_driver_model.
 
         // TODO: Better versions of this model exist, should probably upgrade.
+        // NOTE: used improvement where velocity is always non negative
 
-        accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
+        //float myVelocity = myRigidBody.velocity.magnitude;
+
+        //if (Vector3.Dot(new Vector3(myRigidBody.velocity.x, myRigidBody.velocity.y), transform.up) < 0)
+        //{
+        //    myVelocity = 0;
+        //}
+
+        float accelerationFree = maxAcceleration * (1 - Mathf.Pow((myRigidBody.velocity.magnitude / desiredVelocity), exponent));
 
         // Adjusts acceleration if any cars are ahead
         RaycastHit2D hit = Physics2D.Raycast(myRigidBody.position, myRigidBody.velocity, 200f, layerMask);
@@ -77,13 +85,12 @@ public class MoveRight : MonoBehaviour
 
             float adjustment = maxAcceleration * Mathf.Pow(function / netDistance, 2);
 
-            accelerationAdj = accelerationFree - adjustment;
+            accelerationFree -= adjustment;
         }
-        else { accelerationAdj = accelerationFree; }
 
         // Applies acceleration
-
-        myRigidBody.velocity *= (myRigidBody.velocity.magnitude + (accelerationAdj * Time.deltaTime)) / myRigidBody.velocity.magnitude;
+        myRigidBody.velocity = (myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime)) * transform.up;
+        Debug.Log(myRigidBody.velocity.magnitude);
 
         if (Math.Abs(transform.position.x) > 185 || Math.Abs(transform.position.y) > 105)
         {

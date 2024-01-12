@@ -295,6 +295,8 @@ MonoBehaviour:
   hasYellowClearance: 0
   hasRedClearance: 0
   hasLeftClearance: 0
+  accelerationFree: 0
+  accelerationAdj: 0
 --- !u!50 &261653039292214715
 Rigidbody2D:
   serializedVersion: 4
