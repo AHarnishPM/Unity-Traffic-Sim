@@ -59,6 +59,13 @@ public class StandardLightScript : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    void new_Update()
+    {
+        // Need acceleration value from cars
+    }
+
+    // Update is called once per frame
     void Update()
     {
         // Tell all cars whether to ignore or respect barriers.
@@ -224,11 +231,11 @@ public class StandardLightScript : MonoBehaviour
     {
         if (!isRunning) { return; }
         StartCoroutine(switchTo(orientations[1]));
-        StartCoroutine(switchTo(orientations[1], 10, true));
-        StartCoroutine(switchTo(orientations[0], 13));
-        StartCoroutine(switchTo(orientations[2], 15, false));
-        StartCoroutine(switchTo(orientations[2], 25, true));
+        StartCoroutine(switchTo(orientations[1], 25, true));
         StartCoroutine(switchTo(orientations[0], 28));
-        StartCoroutine(waitToStartCycle(30));
+        StartCoroutine(switchTo(orientations[2], 29, false));
+        StartCoroutine(switchTo(orientations[2], 54, true));
+        StartCoroutine(switchTo(orientations[0], 57));
+        StartCoroutine(waitToStartCycle(58));
     }
 }

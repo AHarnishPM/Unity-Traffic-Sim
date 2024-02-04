@@ -284,7 +284,7 @@ MonoBehaviour:
   rightSignal: {fileID: 2600820469907898571}
   minimumSpacing: 1.5
   desiredTimeGap: 2
-  maxAcceleration: 3
+  maxAcceleration: 2
   comfyBrakingDecelleration: 2.5
   exponent: 4
   timer: 0
@@ -295,8 +295,6 @@ MonoBehaviour:
   hasYellowClearance: 0
   hasRedClearance: 0
   hasLeftClearance: 0
-  accelerationFree: 0
-  accelerationAdj: 0
 --- !u!50 &261653039292214715
 Rigidbody2D:
   serializedVersion: 4

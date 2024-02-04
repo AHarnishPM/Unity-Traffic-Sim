@@ -90,7 +90,6 @@ public class MoveRight : MonoBehaviour
 
         // Applies acceleration
         myRigidBody.velocity = (myRigidBody.velocity.magnitude + (accelerationFree * Time.deltaTime)) * transform.up;
-        Debug.Log(myRigidBody.velocity.magnitude);
 
         if (Math.Abs(transform.position.x) > 185 || Math.Abs(transform.position.y) > 105)
         {

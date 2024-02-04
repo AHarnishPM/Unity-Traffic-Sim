@@ -49,5 +49,5 @@ MonoBehaviour:
   SpawnRate: 5
   carsLeft: 4
   spawnPct: 0.4
-  leftPct: 0.5
-  rightPct: 0.25
+  leftPct: 0.2
+  rightPct: 0.3
