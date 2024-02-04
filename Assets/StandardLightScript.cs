@@ -32,7 +32,7 @@ public class StandardLightScript : MonoBehaviour
 
     private bool isRunning;
 
-    public float leftGreenGap = 5;
+    public float leftGreenGap = 4;
 
     public float rightRedGap = 5;
 
@@ -114,10 +114,13 @@ public class StandardLightScript : MonoBehaviour
                             {
                                     
                                 // TODO: Can cause issues for lights where opposite can be red while you are green.
-                                if (myTime + leftGreenGap > oppTime || (oppVelo < 1 && oppScript.turnSignal != -1))
+                                if ((myTime + leftGreenGap > oppTime) || (oppVelo < 1 && oppScript.turnSignal != -1))
                                 {
                                     canTurn = false;
                                         
+                                }
+                                if (myVelo < 0.2f && oppTime > leftGreenGap && oppVelo > 2f){
+                                    canTurn = true;
                                 }
                             }
                             
